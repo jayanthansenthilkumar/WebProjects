@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Meta Particle Effects</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #1b2a3b;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        let mouse = { x: null, y: null };
+
+        // Particle behavior types
+        const ATTRACTION = "attraction";
+        const REPULSION = "repulsion";
+        const NORMAL = "normal";
+
+        // Particle class
+        class Particle {
+            constructor(x, y, size, color, type) {
+                this.x = x;
+                this.y = y;
+                this.size = size;
+                this.color = color;
+                this.type = type;
+                this.velocity = { x: Math.random() * 2 - 1, y: Math.random() * 2 - 1 };
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            update() {
+                if (this.type === ATTRACTION) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const force = Math.min(100, distance) / 100;
+                    this.velocity.x += (dx / distance) * force;
+                    this.velocity.y += (dy / distance) * force;
+                }
+
+                if (this.type === REPULSION) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const force = Math.min(100, distance) / 100;
+                    this.velocity.x -= (dx / distance) * force;
+                    this.velocity.y -= (dy / distance) * force;
+                }
+
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+
+                // Boundary collision
+                if (this.x <= 0 || this.x >= canvas.width) this.velocity.x = -this.velocity.x;
+                if (this.y <= 0 || this.y >= canvas.height) this.velocity.y = -this.velocity.y;
+            }
+        }
+
+        // Initialize particles
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 150; i++) {
+                let size = Math.random() * 3 + 1;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                let type = i % 3 === 0 ? ATTRACTION : (i % 3 === 1 ? REPULSION : NORMAL);
+                particles.push(new Particle(x, y, size, color, type));
+            }
+        }
+
+        // Mouse movement event
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        // Resize event
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+    </script>
+</body>
+</html>

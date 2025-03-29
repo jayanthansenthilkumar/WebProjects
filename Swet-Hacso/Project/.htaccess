@@ -1,0 +1,43 @@
+# Disable browser caching
+<IfModule mod_headers.c>
+    Header set Cache-Control "no-store, no-cache, must-revalidate, post-check=0, pre-check=0"
+    Header set Pragma "no-cache"
+    Header set Expires "Thu, 01 Jan 1970 00:00:00 GMT"
+    Header unset ETag
+    Header set X-Cache-Status "disabled"
+    
+    # Prevent caching for all file types
+    <FilesMatch "\.(html|htm|js|json|css|php|xml|txt|jpg|jpeg|png|gif|svg|pdf)$">
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+</IfModule>
+
+# Disable ETags
+FileETag None
+
+# Enable GZIP Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Leverage Browser Caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>

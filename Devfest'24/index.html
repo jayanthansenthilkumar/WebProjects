@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="assets/tech.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" />
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+
+    <title>DevFest'24 - MKCE</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+        body {
+            font-family: "Poppins", sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary-blue: #1d4ed8;
+            --mild-blue: #e0f7fa;
+            --bg-gradient: linear-gradient(135deg, #f3ec78, #af4261);
+            --hero-bg: #fafafa;
+            --about-bg: #e0f7fa;
+            --skills-bg: #f0f4f8;
+            --navbar-bg: rgba(50, 50, 50, 0.9);
+            --nav-hover-color: #3b82f6;
+        }
+
+        /* Navigation Link Styles */
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+
+        /* Hover Effect for Navigation Links */
+        .nav-link:hover {
+            color: var(--nav-hover-color);
+            /* Change to your desired hover color */
+        }
+
+        .active {
+            color: var(--primary-blue);
+            font-weight: bold;
+            /* No text decoration */
+        }
+
+
+        .sitename {
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in {
+            animation: slideIn 1.5s ease-in-out forwards;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s forwards;
+        }
+
+        /* Bubble animation */
+        .bubble {
+            position: absolute;
+            bottom: -150px;
+            /* Start below the section */
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 123, 255, 0.6);
+            /* Change to your preferred color */
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: rise 10s infinite;
+        }
+
+        /* Randomize the bubbles' sizes and starting positions */
+        .bubble:nth-child(1) {
+            left: 20%;
+            animation-duration: 8s;
+            animation-delay: 0s;
+            width: 25px;
+            height: 25px;
+        }
+
+        .bubble:nth-child(2) {
+            left: 40%;
+            animation-duration: 6s;
+            animation-delay: 2s;
+            width: 35px;
+            height: 35px;
+        }
+
+        .bubble:nth-child(3) {
+            left: 60%;
+            animation-duration: 7s;
+            animation-delay: 1s;
+            width: 20px;
+            height: 20px;
+        }
+
+        .bubble:nth-child(4) {
+            left: 80%;
+            animation-duration: 9s;
+            animation-delay: 3s;
+            width: 30px;
+            height: 30px;
+        }
+
+        .bubble:nth-child(5) {
+            left: 30%;
+            animation-duration: 10s;
+            animation-delay: 4s;
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Keyframes for bubble animation */
+        @keyframes rise {
+            0% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(-100vh);
+                /* Move the bubble up */
+                opacity: 0;
+                /* Fade out */
+            }
+        }
+
+        .icon-link:hover i {
+            transform: rotate(360deg);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .pagination-controls {
+            margin-top: 20px;
+        }
+
+        .pagination-controls .dot {
+            transition: background-color 0.3s;
+        }
+
+        .pagination-controls .dot.active {
+            background-color: rgba(9, 60, 121, 1);
+        }
+
+        .team-filters li.active {
+            background-color: #3b82f6;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1400px;
+            padding: 0 30px;
+        }
+
+        .team-member {
+            height: auto;
+        }
+
+        .pic img {
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-black">
+    <!-- Header Section -->
+    <header class="bg-black shadow-md fixed w-full top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center py-4 px-6 lg:px-12">
+            <!-- Logo Section -->
+            <a href="https://devfest-mkce.web.app" class="flex items-center">
+                <img src="assets/tech.png" alt="TIH Logo" class="h-16 w-16 mr-3" />
+                <span class="text-white text-lg">Devfest</span>
+            </a>
+
+            <!-- Mobile Download Brochure Button (Visible on Mobile Only) -->
+            <!-- <a href="assets/brochure.png" download
+                class="inline-block bg-green-600 text-white py-2 px-4 rounded-lg font-semibold lg:hidden">
+                Download Brochure
+            </a> -->
+
+            <!-- Navigation Menu -->
+            <div class="bg-black rounded-lg p-1 hidden lg:flex">
+                <nav id="navmenu" class="space-x-8">
+                    <ul class="flex items-center space-x-6">
+                        <li><a href="#hero"
+                                class="nav-link text-gray-200 transition duration-300 hover:text-white">Home</a></li>
+                        <li><a href="#about"
+                                class="nav-link text-gray-200 transition duration-300 hover:text-white">About</a></li>
+                        <li><a href="#chief-guest"
+                                class="nav-link text-gray-200 transition duration-300 hover:text-white">Chief Guest</a>
+                        </li>
+                        <li><a href="#organizers"
+                                class="nav-link text-gray-200 transition duration-300 hover:text-white">Coordinators</a>
+                        </li>
+                        <li><a href="#contact"
+                                class="nav-link text-gray-200 transition duration-300 hover:text-white">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <i class="mobile-nav-toggle bi bi-list text-2xl lg:hidden cursor-pointer text-gray-400"></i>
+        </div>
+    </header>
+
+    <main class="mt-16">
+        <!-- Hero Section -->
+        <section id="hero" class="py-20 text-black px-6 lg:px-12" style="background-color: var(--hero-bg)">
+            <div id="particles-js" class="absolute inset-0 z-0"></div>
+            <div class="flex flex-col lg:flex-row items-center justify-between">
+                <!-- Hero Content -->
+                <div class="text-center lg:text-left lg:w-1/2 space-y-4 slide-in">
+                    <h1 class="text-5xl lg:text-6xl font-bold leading-tight">
+                        Welcome to
+                        <span class="text-primary-blue">Devfest'24</span>
+                    </h1>
+                    <p class="text-lg lg:text-xl">
+                        <!-- Optional description text here -->
+                    </p>
+
+                    <!-- Countdown Timer with Pulse Animation -->
+                    <div id="countdown" class="text-2xl font-semibold text-orange-500 my-4">
+                        <span id="days" class="countdown-number"></span>d
+                        <span id="hours" class="countdown-number"></span>h
+                        <span id="minutes" class="countdown-number"></span>m
+                        <span id="seconds" class="countdown-number"></span>s
+                    </div>
+
+                    <!-- Register Here Button -->
+                    <a href="#" id="registerButton"
+                        class="inline-block bg-blue-700 text-white py-2 px-6 rounded-lg font-semibold hover:bg-black transition duration-300">
+                        Register Here
+                    </a>
+
+                    <!-- Download Brochure Button (Hidden on Mobile) -->
+                    <a href="assets/brochure.png" download
+                        class="inline-block bg-green-600 text-white py-2 px-6 rounded-lg font-semibold hover:bg-black transition duration-300 mt-4">
+                        Download Brochure
+                    </a>
+                </div>
+
+                <!-- Hero Image with Floating Effects (Hidden on Mobile) -->
+                <div class="lg:w-1/2 mb-8 lg:mb-0 mt-8 lg:mt-0 flex justify-center">
+                    <img src="assets/tech.png" alt="Hero Image" class="w-full h-auto lg:max-w-lg rounded-lg floating" />
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Countdown Timer Script
+        const countdownDate = new Date("Jan 27, 2025 09:29:59").getTime();
+        const updateCountdown = setInterval(function () {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+
+            if (distance < 0) {
+                clearInterval(updateCountdown);
+                document.getElementById("countdown").innerHTML = "Event Started!";
+            }
+        }, 1000);
+    </script>
+
+    <style>
+        /* Pulse animation for countdown numbers */
+        .countdown-number {
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+            font-size: 1.5em;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Hide hero image and brochure button on mobile view */
+        @media (max-width: 1024px) {
+            .lg\\:block {
+                display: none;
+            }
+        }
+    </style>
+    <!-- Modal for Google Form -->
+    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg p-6 relative max-w-2xl w-full"> <!-- Increased max-width -->
+            <button id="closeModal" class="absolute top-2 right-2 text-black text-2xl">&times;</button>
+            <h2 class="text-lg font-bold mb-4">Register Now!</h2>
+            <iframe src="https://forms.gle/isRSnnmsf4p842DN9" width="100%" height="600px" frameborder="0"
+                marginheight="0" marginwidth="0">Loading...</iframe> <!-- Increased height -->
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+        </div>
+    </div>
+    <style>
+        /* Modal Styles */
+        #modal {
+            z-index: 1000;
+        }
+    </style>
+
+    <!-- JavaScript for Modal Functionality -->
+    <script>
+        const registerButton = document.getElementById('registerButton');
+        const modal = document.getElementById('modal');
+        const closeModal = document.getElementById('closeModal');
+
+        registerButton.onclick = function () {
+            modal.classList.remove('hidden');
+        }
+
+        closeModal.onclick = function () {
+            modal.classList.add('hidden');
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.classList.add('hidden');
+            }
+        }
+    </script>
+
+    <section id="about" class="about bg-gray-50 py-16" style="background-color: var(--about-bg)">
+        <div class="container mx-auto px-6 lg:px-20" data-aos="fade-up">
+            <!-- Section Title -->
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800">Event Description</h2><br>
+                </h3>
+                <p class="mt-6 text-lg text-gray-500 leading-relaxed max-w-2xl mx-auto justify-content">
+                    Welcome to DevFest, a dynamic celebration of technology, creativity, and collaboration! Our
+                    mission is to bring together developers, tech enthusiasts, and industry leaders to learn, share,
+                    and innovate. Through hands-on workshops, inspiring talks, and networking opportunities, DevFest
+                    empowers participants to explore the latest in technology, sharpen their skills, and connect
+                    with like-minded individuals.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chief Guest Section -->
+    <section id="chief-guest" class="bg-gradient-to-l from-indigo-100 to-blue-100 py-16">
+        <div class="container mx-auto px-6 lg:px-20" data-aos="fade-up">
+            <!-- Section Title -->
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-extrabold text-blue-800">Chief Guests</h2>
+                <p class="mt-4 text-lg text-gray-700">Introducing our esteemed guests for DevFest'24.</p>
+            </div>
+            <!-- Chief Guests Information -->
+            <div class="flex flex-col lg:flex-row items-center justify-center lg:space-x-8">
+                <!-- Guest 1 -->
+                <div class="relative bg-white rounded-2xl shadow-2xl p-8 transform transition-transform duration-300 hover:scale-105 hover:shadow-xl" data-aos="zoom-in">
+                    <img src="assets/pradeep.jpg" alt="Chief Guest 1"
+                        class="rounded-full h-48 w-48 mx-auto mb-6 border-8 border-indigo-200" />
+                    <h3 class="text-3xl font-bold text-blue-800 text-center">PRADEEP K</h3>
+                    <p class="text-lg text-gray-500 text-center mt-2">Project Lead - IWOOD Technologies</p>
+                    <p class="mt-6 text-gray-600 leading-relaxed text-center max-w-lg">A brief introduction about
+                        Pradeep Kandasamy, highlighting his achievements and his connection to the event's vision.
+                    </p>
+                </div>
+                <!-- Guest 2 -->
+                <div class="relative bg-white rounded-2xl shadow-2xl p-8 transform transition-transform duration-300 hover:scale-105 hover:shadow-xl" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="assets/jayanthan.jpg" alt="Chief Guest 2"
+                        class="rounded-full h-48 w-48 mx-auto mb-6 border-8 border-indigo-200" />
+                    <h3 class="text-3xl font-bold text-blue-800 text-center">JAYANTHAN S</h3>
+                    <p class="text-lg text-gray-500 text-center mt-2">Junior Developer - IWOOD Technologies</p>
+                    <p class="mt-6 text-gray-600 leading-relaxed text-center max-w-lg">An emerging developer with 
+                        a passion for coding and innovation, contributing to the tech community.
+                    </p>
+                </div>
+                <!-- Guest 3 -->
+                <div class="relative bg-white rounded-2xl shadow-2xl p-8 transform transition-transform duration-300 hover:scale-105 hover:shadow-xl" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="assets/yadhav.jpg" alt="Chief Guest 3"
+                        class="rounded-full h-48 w-48 mx-auto mb-6 border-8 border-indigo-200" />
+                    <h3 class="text-3xl font-bold text-blue-800 text-center">YADHAVARAMANAN C</h3>
+                    <p class="text-lg text-gray-500 text-center mt-2">Junior Developer - IWOOD Technologies</p>
+                    <p class="mt-6 text-gray-600 leading-relaxed text-center max-w-lg">A dedicated developer known 
+                        for his innovative thinking and collaborative approach in tech solutions.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Decorative Bubbles -->
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </section>
+    
+
+    <!-- Include AOS Library for Scroll Animations -->
+
+    <script>
+        AOS.init({
+            duration: 1200, // Animation duration
+            always: true // Only animate always
+        });
+    </script>
+
+    <!-- <style>
+            /* Flip Card Animation */
+            .flip-card {
+                perspective: 1000px;
+            }
+            .flip-card-front, .flip-card-back {
+                backface-visibility: hidden;
+                transform-style: preserve-3d;
+                transition: transform 0.6s;
+            }
+            .flip-card-front {
+                transform: rotateY(0);
+            }
+            .flip-card-back {
+                transform: rotateY(180deg);
+                opacity: 0;
+            }
+            .group:hover .flip-card-front {
+                transform: rotateY(-180deg);
+            }
+            .group:hover .flip-card-back {
+                opacity: 1;
+                transform: rotateY(0);
+            }
+        </style> -->
+
+
+    <!-- Organizers -->
+    <section id="organizers" class="bg-white py-12 relative overflow-hidden" style="background-color: #f0f4f8;">
+        <!-- Particle Animation -->
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="container mx-auto text-center mb-8 relative z-10">
+            <h2 class="text-black text-4xl font-extrabold tracking-wide">Organizing Team</h2>
+            <div class="text-center mb-12">
+                <p class="mt-4 text-lg text-gray-700">Introducing our honored community of organizers who have made
+                    this event possible.</p>
+
+            </div>
+        </div>
+        <div class="container mx-auto relative z-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center">
+                <!-- Existing trainer cards -->
+                <div class="flex flex-col items-center bg-white rounded-lg">
+                    <img src="assets/muthu.png"
+                        class="w-32 h-32 rounded-full border-4 border-gray-500 transition-transform duration-300 hover:scale-110"
+                        alt="Trainer 1">
+                    <h3 class="text-black text-xl font-bold mt-4">MUTHUKUMAR K</h3>
+                    <h4 class="text-gray-600 text-md italic">Microsoft Learn Student Ambassador (BETA)</h4>
+                    <div class="flex justify-center my-4 font-awesome-icons flex space-x-4 mt-4">
+                        <a href="tel:+916369400802"
+                            class="icon-link text-2xl text-black hover:text-blue-700 p-2 flex items-center">
+                            <i class="fa-solid fa-phone"></i>
+                        </a>
+                        <a href="https://wa.me/+916369400802"
+                            class="icon-link text-2xl text-black hover:text-blue-700 p-2 flex items-center">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center bg-white rounded-lg">
+                    <img src="assets/venkat.jpg"
+                        class="w-32 h-32 rounded-full border-4 border-gray-500 transition-transform duration-300 hover:scale-110"
+                        alt="Trainer 2">
+                    <h3 class="text-black text-xl font-bold mt-4">VENKAT RAGAV N</h3>
+                    <h4 class="text-gray-600 text-md italic">Microsoft Learn Student Ambassador (ALPHA)</h4>
+                    <div class="flex justify-center my-4 font-awesome-icons flex space-x-4 mt-4">
+                        <a href="tel:+918838978583"
+                            class="icon-link text-2xl text-black hover:text-blue-700 p-2 flex items-center">
+                            <i class="fa-solid fa-phone"></i>
+                        </a>
+                        <a href="https://wa.me/+918838978583"
+                            class="icon-link text-2xl text-black hover:text-blue-700 p-2 flex items-center">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center bg-white rounded-lg">
+                    <img src="assets/deepti.jpg"
+                        class="w-32 h-32 rounded-full border-4 border-gray-500 transition-transform duration-300 hover:scale-110"
+                        alt="Trainer 4">
+                    <h3 class="text-black text-xl font-bold mt-4">DEEPTI N</h3>
+                    <h4 class="text-gray-600 text-md italic">Trainee - IWOOD Technologies</h4>
+                    <div class="flex justify-center my-4 font-awesome-icons flex space-x-4 mt-4">
+                        <a href="tel:+917604811997"
+                            class="icon-link text-2xl text-black hover:text-blue-700 p-2 flex items-center">
+                            <i class="fa-solid fa-phone"></i>
+                        </a>
+                        <a href="https://wa.me/+917604811997"
+                            class="icon-link text-2xl text-black hover:text-blue-700 p-2 flex items-center">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- <div class="flex flex-col items-center bg-white rounded-lg">
+                    <img src="assets/gencraft/new_trainer_2.jpg"
+                        class="w-32 h-32 rounded-full border-4 border-gray-500 transition-transform duration-300 hover:scale-110"
+                        alt="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TBD">
+                    <h3 class="text-black text-xl font-bold mt-4">TBD</h3>
+                    <h4 class="text-gray-600 text-md italic">TBD</h4>
+                    <div class="flex justify-center my-4 font-awesome-icons flex space-x-4 mt-4">
+                        <a href="tel:+919999999999"
+                            class="icon-link text-2xl text-black hover:text-blue-700 p-2 flex items-center">
+                            <i class="fa-solid fa-phone"></i>
+                        </a>
+                        <a href="https://wa.me/+919999999999"
+                            class="icon-link text-2xl text-black hover:text-blue-700 p-2 flex items-center">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <style>
+        #particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Ensure it fills the section */
+            z-index: 0;
+            /* Keep it behind other content */
+        }
+
+        section {
+            position: relative;
+            /* Ensure the section is positioned relative to the canvas */
+            overflow: visible;
+            /* Allow scrolling */
+            padding-top: 60px;
+            /* Give some padding to see particles behind the section */
+            z-index: 1;
+            /* Bring the section above the particles */
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            particlesJS('particles-js', {
+                particles: {
+                    number: {
+                        value: 100, // Number of particles
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: ["#FF5733", "#33FF57", "#3357FF", "#FF33A6", "#FFB533"]
+                    },
+                    shape: {
+                        type: "circle", // Shape of particles
+                        stroke: {
+                            width: 0,
+                            color: "#000000"
+                        },
+                        polygon: {
+                            nb_sides: 5
+                        }
+                    },
+                    opacity: {
+                        value: 0.5,
+                        random: false,
+                        anim: {
+                            enable: false,
+                            speed: 1,
+                            opacity_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    size: {
+                        value: 5,
+                        random: true,
+                        anim: {
+                            enable: false,
+                            speed: 40,
+                            size_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#4B5563", // Use gray-600 color
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 3,
+                        direction: "none",
+                        random: false,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false,
+                        attract: {
+                            enable: false,
+                            rotateX: 600,
+                            rotateY: 1200
+                        }
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: "repulse"
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: "push"
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 400,
+                            line_linked: {
+                                opacity: 1
+                            }
+                        },
+                        bubble: {
+                            distance: 400,
+                            size: 40,
+                            duration: 2,
+                            opacity: 8,
+                            speed: 3
+                        },
+                        repulse: {
+                            distance: 200,
+                            duration: 0.4
+                        },
+                        push: {
+                            particles_nb: 4
+                        },
+                        remove: {
+                            particles_nb: 2
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+        });
+    </script>
+    <!-- Contact -->
+    <section id="contact" class="contact section py-16 bg-gray-100">
+
+        <!-- Section Title -->
+        <div class="container mx-auto text-center mb-12" data-aos="fade-up">
+            <h2 class="text-4xl font-bold text-gray-800">CONTACT US</h2>
+        </div>
+        <!-- Content -->
+        <div class="container mx-auto" data-aos="fade-up" data-aos-delay="100">
+            <div class="flex flex-col lg:flex-row justify-center gap-8">
+                <!-- Info Items -->
+                <div class="w-full lg:w-2/3">
+                    <div class="space-y-8">
+                        <!-- Address -->
+                        <div class="flex items-start space-x-4 p-6 bg-white rounded-lg shadow-md" data-aos="fade-up"
+                            data-aos-delay="200">
+                            <i class="bi bi-geo-alt text-2xl text-blue-600"></i>
+                            <div>
+                                <h3 class="text-xl font-semibold text-black">Address</h3>
+                                <p class="text-gray-600">M Kumarasamy College of Engineering, Thalavapalayam,
+                                    <br>Tamilnadu - 639113
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Email -->
+                        <div class="flex items-start space-x-4 p-6 bg-white rounded-lg shadow-md" data-aos="fade-up"
+                            data-aos-delay="400">
+                            <i class="bi bi-envelope text-2xl text-blue-600"></i>
+                            <div>
+                                <h3 class="text-xl font-semibold text-black">Email Us</h3>
+                                <p class="text-black"><b>Coordinator &nbsp;&nbsp;&nbsp;&nbsp;: </b><a
+                                        href="mailto:devfest.mkce@gmail.com">devfest.mkce@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Map -->
+                <div class="w-full lg:w-3/6">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9642.830016130523!2d78.04868145020151!3d11.055912824733468!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baa2c5940c36779%3A0x638aea1962e8ae96!2sM.Kumarasamy%20College%20of%20Engineering%2C%20Autonomous%20(Accredited%20with%20A%20grade%20by%20NAAC)!5e1!3m2!1sen!2sin!4v1715315365441!5m2!1sen!2sin"
+                        frameborder="0" class="w-full h-64 rounded-lg shadow-md" loading="lazy" allowfullscreen=""
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+    <!-- Footer -->
+    <footer id="footer" class="relative overflow-hidden py-12" style="background-color: var(--about-bg);">
+        <div class="copyright text-center mt-8">
+            <p class="text-black">© 2024 <span>Copyright </span><span>All Rights Reserved</span>.
+                Designed and Maintained by <b>Devfest Team</b></p>
+        </div>
+        <!-- Scroll-to-Top Button -->
+        <button id="scrollToTop"
+            class="icon-link fixed bottom-5 right-5 p-3 bg-black text-white rounded-full shadow-lg hidden transition-opacity duration-300 z-50">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+
+        <script>
+            const scrollToTopBtn = document.getElementById("scrollToTop");
+            const heroSection = document.getElementById("hero");
+
+            window.onscroll = function () {
+                const heroBottom = heroSection.getBoundingClientRect().bottom;
+
+                // Show button if user scrolls past hero section
+                if (heroBottom < 0) {
+                    scrollToTopBtn.classList.remove("hidden");
+                } else {
+                    scrollToTopBtn.classList.add("hidden");
+                }
+            };
+
+            scrollToTopBtn.onclick = function () {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            };
+        </script>
+
+    </footer>
+    <script>
+        document.querySelectorAll('.nav-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent default anchor behavior
+                const targetSection = document.querySelector(this.getAttribute('href'));
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

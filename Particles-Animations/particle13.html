@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Particle Animation with Light Connections</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: white;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        const mouse = {
+            x: null,
+            y: null,
+            radius: 150,
+        };
+
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        class Particle {
+            constructor(x, y, size, color) {
+                this.x = x;
+                this.y = y;
+                this.size = size;
+                this.color = color;
+                this.baseX = x;
+                this.baseY = y;
+                this.density = Math.random() * 30 + 1;
+                // Set a constant speed and random direction
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 2,
+                    y: (Math.random() - 0.5) * 2,
+                };
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            update() {
+                // Adding constant movement in all directions
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+
+                // Reverse direction when hitting the edges
+                if (this.x - this.size < 0 || this.x + this.size > canvas.width) {
+                    this.velocity.x = -this.velocity.x;
+                }
+                if (this.y - this.size < 0 || this.y + this.size > canvas.height) {
+                    this.velocity.y = -this.velocity.y;
+                }
+
+                // Mouse influence
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const maxDistance = 100;
+                const force = (maxDistance - distance) / maxDistance;
+                const directionX = dx / distance;
+                const directionY = dy / distance;
+
+                if (distance < maxDistance) {
+                    this.x -= directionX * force * this.density;
+                    this.y -= directionY * force * this.density;
+                }
+            }
+        }
+
+        // Function to draw connections between particles
+        function connectParticles() {
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    const dx = particles[a].x - particles[b].x;
+                    const dy = particles[a].y - particles[b].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    // Draw a connection if the distance is small enough
+                    if (distance < 100) {
+                        const alpha = 1 - distance / 100;  // Make connections lighter with distance
+                        ctx.strokeStyle = `rgba(0, 0, 0, ${alpha})`; // Light color for connection
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function initParticles() {
+            particles.length = 0;
+            const particleCount = 150; // Reduced particle count
+            for (let i = 0; i < particleCount; i++) {
+                const size = Math.random() * 3 + 1;
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const color = 'black'; // Black particles
+                particles.push(new Particle(x, y, size, color));
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle) => {
+                particle.update();
+                particle.draw();
+            });
+
+            connectParticles();  // Add connection lines
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+    </script>
+</body>
+</html>

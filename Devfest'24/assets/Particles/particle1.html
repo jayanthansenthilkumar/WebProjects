@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particles Example</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        section {
+            position: relative;
+            padding: 60px 20px;
+            z-index: 1;
+            color: white; /* Change text color for visibility */
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="particles-js"></div>
+
+<section>
+    <h2>Welcome to Our Site</h2>
+    <p>Enjoy the beautiful particle animations in the background!</p>
+</section>
+
+<script>
+    particlesJS('particles-js', {
+        particles: {
+            number: {
+                value: 150,
+                density: {
+                    enable: true,
+                    value_area: 800
+                }
+            },
+            color: {
+                value: ["#ff5733", "#33ff57", "#3357ff", "#ff33a6", "#ffb533"]
+            },
+            shape: {
+                type: "circle", // Can also use "edge" or "triangle"
+                stroke: {
+                    width: 0,
+                    color: "#000000"
+                },
+                polygon: {
+                    nb_sides: 5
+                }
+            },
+            opacity: {
+                value: 0.5,
+                random: false,
+                anim: {
+                    enable: false,
+                    speed: 1,
+                    opacity_min: 0.1,
+                    sync: false
+                }
+            },
+            size: {
+                value: 5,
+                random: true,
+                anim: {
+                    enable: false,
+                    speed: 40,
+                    size_min: 0.1,
+                    sync: false
+                }
+            },
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: "#4B5563", // Gray-600 color
+                opacity: 0.4,
+                width: 1
+            },
+            move: {
+                enable: true,
+                speed: 3,
+                direction: "none",
+                random: true,
+                straight: false,
+                out_mode: "out",
+                bounce: false,
+                attract: {
+                    enable: false,
+                    rotateX: 600,
+                    rotateY: 1200
+                }
+            }
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: {
+                onhover: {
+                    enable: true,
+                    mode: "grab"
+                },
+                onclick: {
+                    enable: true,
+                    mode: "push"
+                },
+                resize: true
+            },
+            modes: {
+                grab: {
+                    distance: 140,
+                    line_linked: {
+                        opacity: 1
+                    }
+                },
+                bubble: {
+                    distance: 400,
+                    size: 40,
+                    duration: 2,
+                    opacity: 8,
+                    speed: 3
+                },
+                repulse: {
+                    distance: 200,
+                    duration: 0.4
+                },
+                push: {
+                    particles_nb: 4
+                },
+                remove: {
+                    particles_nb: 2
+                }
+            }
+        },
+        retina_detect: true
+    });
+
+    // Function to randomly change the colors of particles
+    function randomizeParticleColors() {
+        const colors = ["#ff5733", "#33ff57", "#3357ff", "#ff33a6", "#ffb533"];
+        setInterval(() => {
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            particlesJS.particles.color.value = randomColor;
+        }, 1000); // Change color every second
+    }
+
+    randomizeParticleColors(); // Call the function to start randomizing colors
+</script>
+
+</body>
+</html>

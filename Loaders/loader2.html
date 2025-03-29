@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unique Loader Design</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Radial Orbiting Dots Animation */
+    .orbit-loader {
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+
+    .orbit-loader div {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background-color: #4f46e5; /* Tailwind indigo-600 */
+      border-radius: 50%;
+      animation: orbit 1.5s linear infinite;
+    }
+
+    .orbit-loader div:nth-child(1) {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      animation-delay: 0s;
+    }
+
+    .orbit-loader div:nth-child(2) {
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      animation-delay: 0.25s;
+    }
+
+    .orbit-loader div:nth-child(3) {
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      animation-delay: 0.5s;
+    }
+
+    .orbit-loader div:nth-child(4) {
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      animation-delay: 0.75s;
+    }
+
+    @keyframes orbit {
+      0% {
+        transform: scale(0.8) translateX(-50%);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.2) translateX(-50%);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(0.8) translateX(-50%);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+
+  <!-- Unique Orbiting Dots Loader -->
+  <div id="loader" class="fixed inset-0 flex items-center justify-center bg-white z-50">
+    <div class="orbit-loader">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div id="content" class="hidden">
+    <header class="w-full bg-indigo-500 text-white py-4 shadow">
+      <div class="container mx-auto text-center">
+        <h1 class="text-3xl font-bold">Welcome to My Website</h1>
+      </div>
+    </header>
+
+    <main class="container mx-auto my-10">
+      <div class="text-center">
+        <h2 class="text-2xl font-semibold text-gray-800">Unique Orbiting Dots Loader</h2>
+        <p class="mt-4 text-gray-600">
+          This loader uses orbiting dots with smooth animations for a unique and visually appealing effect.
+        </p>
+      </div>
+    </main>
+
+    <footer class="w-full bg-gray-800 text-white py-4 mt-auto">
+      <div class="container mx-auto text-center">
+        <p>&copy; 2025 Your Website. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Simulate content loading
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      const content = document.getElementById("content");
+
+      setTimeout(() => {
+        loader.classList.add("hidden");
+        content.classList.remove("hidden");
+      }, 2000); // Adjust delay as needed
+    });
+  </script>
+</body>
+</html>

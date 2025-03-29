@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Random Particles</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #1b2a3b; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Particle array
+        let particles = [];
+
+        // Particle class with random movement
+        class Particle {
+            constructor(x, y, speed, angle) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 5 + 1; // Random size between 1 and 6
+                this.speed = speed;
+                this.angle = angle;
+                this.velocityX = Math.cos(this.angle) * this.speed;
+                this.velocityY = Math.sin(this.angle) * this.speed;
+                this.color = `hsl(${Math.random() * 360}, 100%, 70%)`; // Random color
+            }
+
+            // Update particle position based on its velocity
+            update() {
+                this.x += this.velocityX;
+                this.y += this.velocityY;
+
+                // Create a random "bouncing" effect
+                if (this.x < 0 || this.x > canvas.width) this.velocityX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.velocityY *= -1;
+
+                this.draw();
+            }
+
+            // Draw the particle on the canvas
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles with random positions and speeds
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 200; i++) {  // Change the number for more/fewer particles
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const speed = Math.random() * 2 + 1; // Random speed between 1 and 3
+                const angle = Math.random() * Math.PI * 2; // Random angle between 0 and 360 degrees
+                particles.push(new Particle(x, y, speed, angle));
+            }
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+
+            particles.forEach(particle => {
+                particle.update();
+            });
+
+            requestAnimationFrame(animate); // Request next animation frame
+        }
+
+        // Handle resizing of the window
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();  // Re-initialize particles on resize
+        });
+
+        initParticles();  // Initialize particles when the page loads
+        animate();  // Start the animation loop
+    </script>
+</body>
+</html>

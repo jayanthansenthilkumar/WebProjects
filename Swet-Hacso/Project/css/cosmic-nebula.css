@@ -1,0 +1,30 @@
+.cosmic-nebula-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.8;
+    mix-blend-mode: screen;
+}
+
+.cosmic-glow {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(30px);
+    background: radial-gradient(circle at center,
+        rgba(88, 120, 255, 0.2) 0%,
+        transparent 70%
+    );
+    mix-blend-mode: screen;
+    opacity: 0;
+    animation: cosmicPulse 4s ease-in-out infinite;
+}
+
+@keyframes cosmicPulse {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website with Unique Loader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Pulsating Ring Loader Animation */
+    .pulse-ring {
+      position: relative;
+      width: 64px;
+      height: 64px;
+    }
+    .pulse-ring::before,
+    .pulse-ring::after {
+      content: '';
+      position: absolute;
+      border: 8px solid transparent;
+      border-top-color: #4f46e5; /* Tailwind indigo-600 */
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      animation: pulse 1.5s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+    .pulse-ring::after {
+      width: 48px;
+      height: 48px;
+      top: 8px;
+      left: 8px;
+      animation-delay: 0.5s;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0.8);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.6);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+
+  <!-- Unique Loader -->
+  <div id="loader" class="fixed inset-0 flex items-center justify-center bg-white z-50">
+    <div class="pulse-ring"></div>
+  </div>
+
+  <!-- Content -->
+  <div id="content" class="hidden">
+    <header class="w-full bg-indigo-500 text-white py-4 shadow">
+      <div class="container mx-auto text-center">
+        <h1 class="text-3xl font-bold">Welcome to My Website</h1>
+      </div>
+    </header>
+
+    <main class="container mx-auto my-10">
+      <div class="text-center">
+        <h2 class="text-2xl font-semibold text-gray-800">Unique Lazy Loader with Tailwind CSS</h2>
+        <p class="mt-4 text-gray-600">
+          This is a unique pulsating ring loader created using Tailwind CSS and custom keyframe animations.
+        </p>
+      </div>
+    </main>
+
+    <footer class="w-full bg-gray-800 text-white py-4 mt-auto">
+      <div class="container mx-auto text-center">
+        <p>&copy; 2025 Your Website. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Simulate content loading
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      const content = document.getElementById("content");
+
+      setTimeout(() => {
+        loader.classList.add("hidden");
+        content.classList.remove("hidden");
+      }, 2000); // Adjust delay as needed
+    });
+  </script>
+</body>
+</html>

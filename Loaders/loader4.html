@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unique WiFi Symbol Loader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* WiFi Dots Loader Animation */
+    .wifi-loader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .wifi-dot {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .wifi-dot div {
+      width: 12px;
+      height: 12px;
+      background-color: #4f46e5; /* Tailwind indigo-600 */
+      border-radius: 50%;
+      animation: pulse-dot 1.5s infinite;
+    }
+
+    .wifi-dot:nth-child(1) div {
+      animation-delay: 0s;
+    }
+
+    .wifi-dot:nth-child(2) div {
+      animation-delay: 0.2s;
+    }
+
+    .wifi-dot:nth-child(3) div {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes pulse-dot {
+      0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+
+  <!-- Unique WiFi Symbol Loader -->
+  <div id="loader" class="fixed inset-0 flex items-center justify-center bg-white z-50">
+    <div class="wifi-loader">
+      <div class="wifi-dot">
+        <div></div>
+      </div>
+      <div class="wifi-dot">
+        <div></div>
+        <div></div>
+      </div>
+      <div class="wifi-dot">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div id="content" class="hidden">
+    <header class="w-full bg-indigo-500 text-white py-4 shadow">
+      <div class="container mx-auto text-center">
+        <h1 class="text-3xl font-bold">Welcome to My Website</h1>
+      </div>
+    </header>
+
+    <main class="container mx-auto my-10">
+      <div class="text-center">
+        <h2 class="text-2xl font-semibold text-gray-800">Unique WiFi Dots Loader</h2>
+        <p class="mt-4 text-gray-600">
+          This loader uses pulsating dots to mimic the appearance of a WiFi signal. It’s visually unique and perfect for modern websites.
+        </p>
+      </div>
+    </main>
+
+    <footer class="w-full bg-gray-800 text-white py-4 mt-auto">
+      <div class="container mx-auto text-center">
+        <p>&copy; 2025 Your Website. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Simulate content loading
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      const content = document.getElementById("content");
+
+      setTimeout(() => {
+        loader.classList.add("hidden");
+        content.classList.remove("hidden");
+      }, 2000); // Adjust delay as needed
+    });
+  </script>
+</body>
+</html>

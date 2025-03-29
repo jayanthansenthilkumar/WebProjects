@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined Particle Animation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #0f2027;
+            background-image: linear-gradient(315deg, #0f2027 0%, #203a43 74%);
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        const mouse = {
+            x: null,
+            y: null,
+            radius: 150,
+        };
+
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        class Particle {
+            constructor(x, y, size, color) {
+                this.x = x;
+                this.y = y;
+                this.size = size;
+                this.color = color;
+                this.baseX = x;
+                this.baseY = y;
+                this.density = Math.random() * 30 + 1;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 2,
+                    y: (Math.random() - 0.5) * 2,
+                };
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            update() {
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const maxDistance = 100;
+                const force = (maxDistance - distance) / maxDistance;
+                const directionX = dx / distance;
+                const directionY = dy / distance;
+
+                if (distance < maxDistance) {
+                    this.x -= directionX * force * this.density;
+                    this.y -= directionY * force * this.density;
+                } else {
+                    if (this.x !== this.baseX) {
+                        const dx = this.x - this.baseX;
+                        this.x -= dx / 10;
+                    }
+                    if (this.y !== this.baseY) {
+                        const dy = this.y - this.baseY;
+                        this.y -= dy / 10;
+                    }
+                }
+
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+
+                if (this.x - this.size < 0 || this.x + this.size > canvas.width) {
+                    this.velocity.x = -this.velocity.x;
+                }
+                if (this.y - this.size < 0 || this.y + this.size > canvas.height) {
+                    this.velocity.y = -this.velocity.y;
+                }
+            }
+
+            static drawConnectionLine(p1, p2) {
+                const distance = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+                if (distance < 100) {
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${(1 - distance / 100).toFixed(2)})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        function connectParticles() {
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    const dx = particles[a].x - particles[b].x;
+                    const dy = particles[a].y - particles[b].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${(1 - distance / 100).toFixed(2)})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                        ctx.closePath();
+                    }
+                }
+            }
+        }
+
+        function initParticles() {
+            particles.length = 0;
+            const particleCount = 500;
+            for (let i = 0; i < particleCount; i++) {
+                const size = Math.random() * 3 + 1;
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const color = 'white';
+                particles.push(new Particle(x, y, size, color));
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle) => {
+                particle.update();
+                particle.draw();
+            });
+
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+    </script>
+</body>
+</html>

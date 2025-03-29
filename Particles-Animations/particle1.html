@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravity Particle Animation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const gravity = 0.05;
+        const friction = 0.99;
+
+        class Particle {
+            constructor(x, y, radius, color) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.color = color;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 5,
+                    y: (Math.random() - 0.5) * 5,
+                };
+                this.alpha = 1; // Transparency
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.closePath();
+                ctx.restore();
+            }
+
+            update() {
+                // Add gravity
+                this.velocity.y += gravity;
+
+                // Add friction
+                this.velocity.x *= friction;
+                this.velocity.y *= friction;
+
+                // Update position
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+
+                // Bounce off edges
+                if (this.x - this.radius <= 0 || this.x + this.radius >= canvas.width) {
+                    this.velocity.x = -this.velocity.x;
+                }
+                if (this.y + this.radius >= canvas.height) {
+                    this.velocity.y = -this.velocity.y * 0.8; // Dampened bounce
+                }
+
+                // Fade out slowly
+                this.alpha -= 0.002;
+            }
+        }
+
+        function init() {
+            particles.length = 0;
+            for (let i = 0; i < 100; i++) {
+                const radius = Math.random() * 5 + 2;
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
+                particles.push(new Particle(x, y, radius, color));
+            }
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle, index) => {
+                if (particle.alpha > 0) {
+                    particle.update();
+                    particle.draw();
+                } else {
+                    particles.splice(index, 1);
+                }
+            });
+
+            // Add more particles dynamically
+            if (particles.length < 100) {
+                const radius = Math.random() * 5 + 2;
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height / 2; // Start near the top
+                const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
+                particles.push(new Particle(x, y, radius, color));
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        init();
+        animate();
+    </script>
+</body>
+</html>

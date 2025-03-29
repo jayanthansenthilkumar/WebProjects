@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Particles without Three.js</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #1b2a3b; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Particle array
+        let particles = [];
+
+        // Particle class
+        class Particle {
+            constructor(x, y, z, speed) {
+                this.x = x;
+                this.y = y;
+                this.z = z;
+                this.size = 2;
+                this.speed = speed;
+                this.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+            }
+
+            // Update particle position to simulate 3D movement
+            update() {
+                // Random movement in x, y, and z (simulating 3D effect)
+                this.x += Math.random() * 2 - 1;
+                this.y += Math.random() * 2 - 1;
+                this.z += Math.random() * 2 - 1;
+
+                // Scale size based on z value to simulate depth
+                const scale = 1 / (this.z / 100 + 1);  // Closer particles are bigger
+                this.size = Math.max(1, scale * 5); // Limit the size
+
+                // Particle position needs to be drawn at a 2D projection
+                this.draw(scale);
+            }
+
+            // Draw particle with scaling effect for 3D
+            draw(scale) {
+                const x2D = this.x * scale + canvas.width / 2;
+                const y2D = this.y * scale + canvas.height / 2;
+
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(x2D, y2D, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 300; i++) {
+                const x = Math.random() * canvas.width - canvas.width / 2;
+                const y = Math.random() * canvas.height - canvas.height / 2;
+                const z = Math.random() * 500 - 250; // Random Z value for depth
+                const speed = Math.random() * 2 + 0.5; // Random speed for particles
+                particles.push(new Particle(x, y, z, speed));
+            }
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+
+            particles.forEach(particle => {
+                particle.update();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        // Handle resizing
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        initParticles();
+        animate();
+    </script>
+</body>
+</html>
