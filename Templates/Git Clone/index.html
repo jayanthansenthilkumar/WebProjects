@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git & GitHub Workshop Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <nav class="sidebar fixed">
+            <div class="logo">
+                <i class="devicon-github-original"></i>
+                <h2>GitMaster</h2>
+            </div>
+            <div class="menu">
+                <a href="index.html" class="active">
+                    <span class="material-icons">dashboard</span>Dashboard
+                </a>
+                <a href="workshops.html">
+                    <span class="material-icons">code</span>Workshops
+                </a>
+                <a href="repositories.html">
+                    <span class="material-icons">hub</span>Repositories
+                </a>
+                <a href="contributors.html">
+                    <span class="material-icons">people</span>Contributors
+                </a>
+                <a href="resources.html">
+                    <span class="material-icons">school</span>Resources
+                </a>
+                <a href="settings.html">
+                    <span class="material-icons">settings</span>Settings
+                </a>
+            </div>
+        </nav>
+        <main class="content">
+            <header class="top-bar fixed">
+                <div class="search-bar">
+                    <span class="material-icons">search</span>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="profile">
+                    <div class="notifications">
+                        <span class="material-icons">notifications</span>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="user">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe" alt="Profile">
+                        <span>John Doe</span>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="main-content">
+                <div class="header-cards">
+                    <div class="welcome-card">
+                        <div class="welcome-text">
+                            <h1>Advanced Git & GitHub Workshop</h1>
+                            <div class="event-highlight">
+                                <h2>Master Version Control</h2>
+                                <p><i class="devicon-github-original"></i> Virtual & In-Person</p>
+                                <p><span class="material-icons">schedule</span> Aug 15, 2023 - 9:00 AM</p>
+                            </div>
+                        </div>
+                        <div class="event-status">
+                            <div class="countdown">
+                                <h3>Registration Closes In</h3>
+                                <div class="timer" id="countdown">22d : 15h : 45m</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-item">
+                            <i class="devicon-git-plain colored"></i>
+                            <div class="summary-info">
+                                <h4>Skill Level</h4>
+                                <p>Beginner to Advanced</p>
+                            </div>
+                        </div>
+                        <div class="summary-item">
+                            <i class="devicon-github-original colored"></i>
+                            <div class="summary-info">
+                                <h4>Workshop Seats</h4>
+                                <p>87/100 Filled</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cards">
+                    <div class="stat-card" data-value="847">
+                        <div class="stat-icon git-icon">
+                            <i class="devicon-git-plain"></i>
+                        </div>
+                        <div class="stat-data">
+                            <h3>Registered Developers</h3>
+                            <p class="counter">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card" data-value="156">
+                        <div class="stat-icon github-icon">
+                            <i class="devicon-github-original"></i>
+                        </div>
+                        <div class="stat-data">
+                            <h3>Projects Created</h3>
+                            <p class="counter">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card" data-value="2389">
+                        <div class="stat-icon">
+                            <span class="material-icons">code</span>
+                        </div>
+                        <div class="stat-data">
+                            <h3>Commits Made</h3>
+                            <p class="counter">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workshop-topics">
+                    <h3>Workshop Topics</h3>
+                    <div class="topic-grid">
+                        <div class="topic-card">
+                            <i class="devicon-git-plain colored"></i>
+                            <h4>Git Basics</h4>
+                            <p>Fundamentals of version control</p>
+                        </div>
+                        <div class="topic-card">
+                            <i class="devicon-github-original colored"></i>
+                            <h4>GitHub Flow</h4>
+                            <p>Collaborative development</p>
+                        </div>
+                        <div class="topic-card">
+                            <span class="material-icons">merge_type</span>
+                            <h4>Branching Strategies</h4>
+                            <p>Advanced branch management</p>
+                        </div>
+                        <div class="topic-card">
+                            <span class="material-icons">security</span>
+                            <h4>Security Best Practices</h4>
+                            <p>Secure repository management</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-grid">
+                    <div class="upcoming-events">
+                        <h3>Recent Registrations</h3>
+                        <div class="registration-list">
+                            <!-- Registration items will be added by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="charts">
+                        <div class="chart-container">
+                            <h3>Attendance Trends</h3>
+                            <canvas id="growthChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

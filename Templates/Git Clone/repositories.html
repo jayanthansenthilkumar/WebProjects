@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repositories - Git & GitHub Training</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <nav class="sidebar fixed">
+            <div class="logo">
+                <i class="devicon-github-original"></i>
+                <h2>GitMaster</h2>
+            </div>
+            <div class="menu">
+                <a href="index.html">
+                    <span class="material-icons">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="workshops.html">
+                    <span class="material-icons">code</span>
+                    <span>Workshops</span>
+                </a>
+                <a href="repositories.html" class="active">
+                    <span class="material-icons">hub</span>
+                    <span>Repositories</span>
+                </a>
+                <a href="contributors.html">
+                    <span class="material-icons">people</span>
+                    <span>Contributors</span>
+                </a>
+                <a href="resources.html">
+                    <span class="material-icons">school</span>
+                    <span>Resources</span>
+                </a>
+                <a href="settings.html">
+                    <span class="material-icons">settings</span>
+                    <span>Settings</span>
+                </a>
+            </div>
+        </nav>
+        <main class="content">
+            <header class="top-bar fixed">
+                <div class="header-content">
+                    <div class="page-header">
+                        <h1>Project Repositories</h1>
+                        <p class="repo-count">12 repositories</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="search-wrapper">
+                            <div class="search-bar">
+                                <span class="material-icons">search</span>
+                                <input 
+                                    type="text" 
+                                    id="repoSearch" 
+                                    placeholder="Find a repository..."
+                                    autocomplete="off"
+                                >
+                            </div>
+                        </div>
+                        <div class="header-buttons">
+                            <button class="filter-btn">
+                                <span class="material-icons">filter_list</span>
+                                <span>Filters</span>
+                            </button>
+                            <!-- Removed new-repo-btn -->
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="repo-container">
+                <div class="repo-filters">
+                    <button class="filter-chip active">All</button>
+                    <button class="filter-chip">Public</button>
+                    <button class="filter-chip">Private</button>
+                    <button class="filter-chip">Archived</button>
+                    <button class="filter-chip">Forks</button>
+                </div>
+
+                <div class="repo-grid">
+                    <div class="repo-card">
+                        <div class="repo-header">
+                            <div class="repo-name">
+                                <a href="https://github.com/organization/workshop-materials" class="repo-title">
+                                    <h3>workshop-materials</h3>
+                                </a>
+                                <span class="badge-public">Public</span>
+                            </div>
+                            <div class="repo-actions">
+                                <button class="star-btn">
+                                    <span class="material-icons">star_border</span>
+                                    Star
+                                </button>
+                                <button class="action-btn">
+                                    <span class="material-icons">more_vert</span>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="repo-description">Training materials and exercises for Git workshop</p>
+                        <div class="repo-meta">
+                            <div class="repo-stats">
+                                <span class="lang-dot javascript"></span>
+                                <span>JavaScript</span>
+                                <span><i class="material-icons">star</i>25</span>
+                                <span><i class="material-icons">fork_right</i>12</span>
+                            </div>
+                            <p class="last-updated">Updated 2 days ago</p>
+                        </div>
+                    </div>
+
+                    <div class="repo-card">
+                        <div class="repo-header">
+                            <div class="repo-name">
+                                <a href="https://github.com/organization/git-fundamentals" class="repo-title">
+                                    <h3>git-fundamentals</h3>
+                                </a>
+                                <span class="badge-featured">Featured</span>
+                            </div>
+                            <div class="repo-actions">
+                                <button class="star-btn active">
+                                    <span class="material-icons">star</span>
+                                    Starred
+                                </button>
+                                <button class="action-btn">
+                                    <span class="material-icons">more_vert</span>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="repo-description">Complete guide to Git fundamentals and best practices</p>
+                        <div class="repo-meta">
+                            <div class="repo-stats">
+                                <span class="lang-dot html"></span>
+                                <span>HTML</span>
+                                <span><i class="material-icons">star</i>48</span>
+                                <span><i class="material-icons">fork_right</i>15</span>
+                            </div>
+                            <p class="last-updated">Updated yesterday</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Removed entire modal structure -->
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

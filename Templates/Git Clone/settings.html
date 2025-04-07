@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Git & GitHub Training</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <nav class="sidebar fixed">
+            // ...existing sidebar code...
+        </nav>
+        <main class="content">
+            <header class="top-bar fixed">
+                <h1>Account Settings</h1>
+                <button class="save-all-btn">
+                    <span class="material-icons">save</span>
+                    Save All Changes
+                </button>
+            </header>
+
+            <div class="settings-container">
+                <div class="settings-grid">
+                    <!-- Profile Section -->
+                    <div class="settings-section">
+                        <div class="section-header">
+                            <span class="material-icons">person</span>
+                            <h2>Profile Settings</h2>
+                        </div>
+                        <div class="settings-form">
+                            <div class="avatar-upload">
+                                <img src="https://ui-avatars.com/api/?name=John+Doe" alt="Profile">
+                                <button class="upload-btn">
+                                    <span class="material-icons">photo_camera</span>
+                                    Change Photo
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <label>Display Name</label>
+                                <input type="text" value="John Doe" class="styled-input">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" value="john@example.com" class="styled-input">
+                            </div>
+                            <div class="form-group">
+                                <label>GitHub Username</label>
+                                <div class="input-with-icon">
+                                    <span class="material-icons">alternate_email</span>
+                                    <input type="text" value="johndoe" class="styled-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preferences Section -->
+                    <div class="settings-section">
+                        <div class="section-header">
+                            <span class="material-icons">notifications</span>
+                            <h2>Notification Preferences</h2>
+                        </div>
+                        <div class="settings-toggles">
+                            <div class="toggle-item">
+                                <div class="toggle-info">
+                                    <h4>Email Notifications</h4>
+                                    <p>Receive updates via email</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-item">
+                                <div class="toggle-info">
+                                    <h4>Browser Notifications</h4>
+                                    <p>Get desktop notifications</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-item">
+                                <div class="toggle-info">
+                                    <h4>Weekly Digest</h4>
+                                    <p>Weekly summary of activities</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Section -->
+                    <div class="settings-section">
+                        <div class="section-header">
+                            <span class="material-icons">security</span>
+                            <h2>Security Settings</h2>
+                        </div>
+                        <div class="security-options">
+                            <button class="security-btn">
+                                <span class="material-icons">lock</span>
+                                Change Password
+                            </button>
+                            <button class="security-btn">
+                                <span class="material-icons">two_factor</span>
+                                Enable 2FA
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

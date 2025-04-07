@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema Corner - Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        * {
+            transition: background-color 0.3s ease, 
+                      color 0.3s ease, 
+                      border-color 0.3s ease, 
+                      box-shadow 0.3s ease;
+        }
+        
+        .theme-transitioning * {
+            transition: none !important;
+        }
+    </style>
+    <!-- Add fallback for Remix icons -->
+    <script>
+        window.addEventListener('error', (e) => {
+            if (e.target.tagName === 'LINK' && e.target.href.includes('remixicon')) {
+                const fallback = document.createElement('link');
+                fallback.rel = 'stylesheet';
+                fallback.href = 'https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css';
+                document.head.appendChild(fallback);
+            }
+        }, true);
+    </script>
+</head>
+<body>
+    <noscript>
+        <div style="padding: 20px; text-align: center;">
+            Please enable JavaScript to use this application.
+        </div>
+    </noscript>
+    <div class="admin-container">
+        <nav class="sidebar">
+            <div class="hamburger">
+                <i class="ri-menu-fold-line"></i>
+            </div>
+            <div class="logo">
+                <i class="ri-film-line logo-icon"></i>
+                <h2>Cinema Corner</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active">
+                    <i class="ri-dashboard-3-line"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li>
+                    <i class="ri-ticket-line"></i>
+                    <span>Book Ticket</span>
+                    <span class="tag">New</span>
+                </li>
+                <li>
+                    <i class="ri-movie-2-line"></i>
+                    <span>Movies</span>
+                </li>
+                <li>
+                    <i class="ri-group-2-line"></i>
+                    <span>Users</span>
+                </li>
+                <li>
+                    <i class="ri-bar-chart-box-line"></i>
+                    <span>Analytics</span>
+                </li>
+                <li>
+                    <i class="ri-settings-4-line"></i>
+                    <span>Settings</span>
+                </li>
+            </ul>
+        </nav>
+        
+        <main class="main-content">
+            <div class="header-container">
+                <header>
+                    <div class="search-bar">
+                        <i class="ri-search-2-line"></i>
+                        <input 
+                            type="text" 
+                            placeholder="Search movies, bookings, or users..." 
+                            autocomplete="off"
+                        >
+                        <div class="search-suggestions">
+                            <!-- Dynamic content will be added by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="user-profile">
+                        <div class="theme-switch" title="Toggle theme">
+                            <i class="ri-sun-line"></i>
+                        </div>
+                        <div class="notifications" title="Notifications">
+                            <i class="ri-notification-3-line"></i>
+                            <span class="badge">3</span>
+                        </div>
+                        <div class="profile-info" id="profile-trigger">
+                            <span class="profile-name">James Walker</span>
+                            <span class="profile-status" title="Online"></span>
+                        </div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>My Profile</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            </div>
+
+            <section class="content-wrapper">
+                
+                <section class="dashboard-overview">
+                    <header class="section-header">
+                        <h2>Dashboard Overview</h2>
+                    </header>
+                    
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="ri-ticket-2-line"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>Total Bookings</h3>
+                                <p class="counter">1,234</p>
+                                <span class="trend positive">+12.5%</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="ri-movie-2-line"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>Active Movies</h3>
+                                <p class="counter">48</p>
+                                <span class="trend positive">+8 this week</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="ri-funds-line"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3>Revenue</h3>
+                                <p class="counter">₹89,240</p>
+                                <span class="trend positive">+15.2%</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="movie-list">
+                    <header class="section-header">
+                        <div class="header-left">
+                            <h2>Recent Movies</h2>
+                            <p class="subtitle">Latest additions to our cinema</p>
+                        </div>
+                        <button class="view-all">View All</button>
+                    </header>
+                    
+                    <div class="movies-grid">
+                        <div class="movie-card">
+                            <div class="movie-poster">
+                                <img src="https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/captain-miller-et00363931-1702971310.jpg" alt="Captain Miller">
+                                <span class="movie-rating">4.6</span>
+                                <div class="movie-actions">
+                                    <button class="action-btn edit"><i class="ri-edit-line"></i></button>
+                                    <button class="action-btn delete"><i class="ri-delete-bin-line"></i></button>
+                                </div>
+                            </div>
+                            <div class="movie-info">
+                                <h3>Captain Miller</h3>
+                                <div class="movie-meta">
+                                    <span class="duration"><i class="ri-time-line"></i> 2h 35m</span>
+                                    <span class="category">Period/Action</span>
+                                </div>
+                                <div class="movie-stats">
+                                    <span class="bookings"><i class="ri-ticket-2-line"></i> 256 Bookings</span>
+                                    <span class="revenue">₹28,450</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="movie-card">
+                            <div class="movie-poster">
+                                <img src="https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/ayalaan-et00311570-1704953726.jpg" alt="Ayalaan">
+                                <span class="movie-rating">4.4</span>
+                                <div class="movie-actions">
+                                    <button class="action-btn edit"><i class="ri-edit-line"></i></button>
+                                    <button class="action-btn delete"><i class="ri-delete-bin-line"></i></button>
+                                </div>
+                            </div>
+                            <div class="movie-info">
+                                <h3>Ayalaan</h3>
+                                <div class="movie-meta">
+                                    <span class="duration"><i class="ri-time-line"></i> 2h 27m</span>
+                                    <span class="category">Sci-Fi/Action</span>
+                                </div>
+                                <div class="movie-stats">
+                                    <span class="bookings"><i class="ri-ticket-2-line"></i> 189 Bookings</span>
+                                    <span class="revenue">₹22,340</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="movie-card">
+                            <div class="movie-poster">
+                                <img src="https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/leo-et00351731-1696331856.jpg" alt="Leo">
+                                <span class="movie-rating">4.8</span>
+                                <div class="movie-actions">
+                                    <button class="action-btn edit"><i class="ri-edit-line"></i></button>
+                                    <button class="action-btn delete"><i class="ri-delete-bin-line"></i></button>
+                                </div>
+                            </div>
+                            <div class="movie-info">
+                                <h3>Leo</h3>
+                                <div class="movie-meta">
+                                    <span class="duration"><i class="ri-time-line"></i> 2h 44m</span>
+                                    <span class="category">Action/Thriller</span>
+                                </div>
+                                <div class="movie-stats">
+                                    <span class="bookings"><i class="ri-ticket-2-line"></i> 567 Bookings</span>
+                                    <span class="revenue">₹45,450</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="movie-card">
+                            <div class="movie-poster">
+                                <img src="https://assets-in.bmscdn.com/iedb/movies/images/mobile/thumbnail/xlarge/fight-club-et00376671-1704967010.jpg" alt="Fight Club">
+                                <span class="movie-rating">4.5</span>
+                                <div class="movie-actions">
+                                    <button class="action-btn edit"><i class="ri-edit-line"></i></button>
+                                    <button class="action-btn delete"><i class="ri-delete-bin-line"></i></button>
+                                </div>
+                            </div>
+                            <div class="movie-info">
+                                <h3>Fight Club</h3>
+                                <div class="movie-meta">
+                                    <span class="duration"><i class="ri-time-line"></i> 2h 32m</span>
+                                    <span class="category">Action/Drama</span>
+                                </div>
+                                <div class="movie-stats">
+                                    <span class="bookings"><i class="ri-ticket-2-line"></i> 145 Bookings</span>
+                                    <span class="revenue">₹18,920</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

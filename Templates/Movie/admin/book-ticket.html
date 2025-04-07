@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Ticket - Cinema Corner</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Include existing head content -->
+</head>
+
+<body>
+    <div class="admin-container">
+        <nav class="sidebar">
+            <div class="hamburger">
+                <i class="ri-menu-fold-line"></i>
+            </div>
+            <div class="logo">
+                <i class="ri-film-line logo-icon"></i>
+                <h2>Cinema Corner</h2>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <i class="ri-dashboard-3-line"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li class="active">
+                    <i class="ri-ticket-line"></i>
+                    <span>Book Ticket</span>
+                    <span class="tag">New</span>
+                </li>
+                <li>
+                    <i class="ri-movie-2-line"></i>
+                    <span>Movies</span>
+                </li>
+                <li>
+                    <i class="ri-group-2-line"></i>
+                    <span>Users</span>
+                </li>
+                <li>
+                    <i class="ri-bar-chart-box-line"></i>
+                    <span>Analytics</span>
+                </li>
+                <li>
+                    <i class="ri-settings-4-line"></i>
+                    <span>Settings</span>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div class="header-container">
+                <header>
+                    <div class="search-bar">
+                        <i class="ri-search-2-line"></i>
+                        <input type="text" placeholder="Search movies, bookings..." autocomplete="off">
+                    </div>
+                    <div class="user-profile">
+                        <div class="theme-switch" title="Toggle theme">
+                            <i class="ri-sun-line"></i>
+                        </div>
+                        <div class="notifications" title="Notifications">
+                            <i class="ri-notification-3-line"></i>
+                            <span class="badge">3</span>
+                        </div>
+                        <div class="profile-info" id="profile-trigger">
+                            <span class="profile-name">James Walker</span>
+                            <span class="profile-status" title="Online"></span>
+                        </div>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <i class="fas fa-user"></i>
+                                <span>My Profile</span>
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            </div>
+
+            <div class="booking-header">
+                <div class="booking-header-left">
+                    <!-- <div class="movie-poster">
+                        <img src="../assets/leo-poster.jpg" alt="LEO Movie Poster">
+                    </div> -->
+                    <div class="movie-details">
+                        <div class="movie-info">
+                            <h1>LEO (U/A)</h1>
+                            <div class="movie-meta">
+                                <span>Tamil</span>
+                                <span>4K</span>
+                                <span>2h 44m</span>
+                            </div>
+                        </div>
+                        <div class="theater-info">
+                            <h3>Thinnappa 4K Dolby Atmos</h3>
+                            <div class="show-details">
+                                <div class="show-date">Today, Oct 21</div>
+                                <div class="show-time">10:30 AM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="booking-header-right">
+                    <div class="seat-legend">
+                        <div class="legend-item">
+                            <span class="seat-demo seat_av"></span>
+                            <span>Available</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="seat-demo seat_bk"></span>
+                            <span>Booked</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="seat-demo selected"></span>
+                            <span>Selected</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="theater-layout">
+                <div class="seats-wrapper">
+                    <div class="seats-container">
+                        <div class="screen-struct-cotent booking-screen" style="text-align:center;width:100%">
+                            <div style="width:1085px">
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">A</li>
+                                    <li class="seat_bk" id="A1">1</li>
+                                    <li class="seat_bk" id="A2">2</li>
+                                    <li class="seat_bk" id="A3">3</li>
+                                    <li class="seat_bk" id="A4">4</li>
+                                    <li class="seat_bk" id="A5">5</li>
+                                    <li class="seat_bk" id="A6">6</li>
+                                    <li class="seat_bk" id="A7">7</li>
+                                    <li class="seat_bk" id="A8">8</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_bk" id="A9">9</li>
+                                    <li class="seat_bk" id="A10">10</li>
+                                    <li class="seat_bk" id="A11">11</li>
+                                    <li class="seat_bk" id="A12">12</li>
+                                    <li class="seat_bk" id="A13">13</li>
+                                    <li class="seat_bk" id="A14">14</li>
+                                    <li class="seat_bk" id="A15">15</li>
+                                    <li class="seat_bk" id="A16">16</li>
+                                    <li class="seat-name">A</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">B</li>
+                                    <li class="seat_bk" id="B1">1</li>
+                                    <li class="seat_bk" id="B2">2</li>
+                                    <li class="seat_bk" id="B3">3</li>
+                                    <li class="seat_bk" id="B4">4</li>
+                                    <li class="seat_bk" id="B5">5</li>
+                                    <li class="seat_bk" id="B6">6</li>
+                                    <li class="seat_bk" id="B7">7</li>
+                                    <li class="seat_bk" id="B8">8</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_bk" id="B9">9</li>
+                                    <li class="seat_bk" id="B10">10</li>
+                                    <li class="seat_bk" id="B11">11</li>
+                                    <li class="seat_bk" id="B12">12</li>
+                                    <li class="seat_bk" id="B13">13</li>
+                                    <li class="seat_bk" id="B14">14</li>
+                                    <li class="seat_bk" id="B15">15</li>
+                                    <li class="seat_bk" id="B16">16</li>
+                                    <li class="seat-name">B</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">C</li>
+                                    <li class="path"></li>
+                                    <li class="seat_bk" id="C2">2</li>
+                                    <li class="seat_bk" id="C3">3</li>
+                                    <li class="seat_bk" id="C4">4</li>
+                                    <li class="seat_bk" id="C5">5</li>
+                                    <li class="seat_bk" id="C6">6</li>
+                                    <li class="seat_bk" id="C7">7</li>
+                                    <li class="seat_bk" id="C8">8</li>
+                                    <li class="seat_bk" id="C9">9</li>
+                                    <li class="path"></li>
+                                    <li class="seat_bk" id="C10">10</li>
+                                    <li class="seat_bk" id="C11">11</li>
+                                    <li class="seat_bk" id="C12">12</li>
+                                    <li class="seat_bk" id="C13">13</li>
+                                    <li class="seat_bk" id="C14">14</li>
+                                    <li class="seat_bk" id="C15">15</li>
+                                    <li class="seat_bk" id="C16">16</li>
+                                    <li class="seat_bk" id="C17">17</li>
+                                    <li class="seat_bk" id="C18">18</li>
+                                    <li class="seat_bk" id="C19">19</li>
+                                    <li class="seat_bk" id="C20">20</li>
+                                    <li class="seat_bk" id="C21">21</li>
+                                    <li class="seat_bk" id="C22">22</li>
+                                    <li class="seat_bk" id="C23">23</li>
+                                    <li class="seat_bk" id="C24">24</li>
+                                    <li class="seat_bk" id="C25">25</li>
+                                    <li class="path"></li>
+                                    <li class="seat_bk" id="C26">26</li>
+                                    <li class="seat_bk" id="C27">27</li>
+                                    <li class="seat_bk" id="C28">28</li>
+                                    <li class="seat_bk" id="C29">29</li>
+                                    <li class="seat_bk" id="C30">30</li>
+                                    <li class="seat_bk" id="C31">31</li>
+                                    <li class="seat_bk" id="C32">32</li>
+                                    <li class="seat_bk" id="C33">33</li>
+                                    <li class="seat_bk" id="C34">34</li>
+                                    <li class="seat-name">C</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">D</li>
+                                    <li class="seat_av" id="D1">1</li>
+                                    <li class="seat_av" id="D2">2</li>
+                                    <li class="seat_av" id="D3">3</li>
+                                    <li class="seat_av" id="D4">4</li>
+                                    <li class="seat_av" id="D5">5</li>
+                                    <li class="seat_av" id="D6">6</li>
+                                    <li class="seat_av" id="D7">7</li>
+                                    <li class="seat_av" id="D8">8</li>
+                                    <li class="seat_av" id="D9">9</li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="D10">10</li>
+                                    <li class="seat_av" id="D11">11</li>
+                                    <li class="seat_av" id="D12">12</li>
+                                    <li class="seat_av" id="D13">13</li>
+                                    <li class="seat_av" id="D14">14</li>
+                                    <li class="seat_av" id="D15">15</li>
+                                    <li class="seat_av" id="D16">16</li>
+                                    <li class="seat_av" id="D17">17</li>
+                                    <li class="seat_av" id="D18">18</li>
+                                    <li class="seat_av" id="D19">19</li>
+                                    <li class="seat_av" id="D20">20</li>
+                                    <li class="seat_av" id="D21">21</li>
+                                    <li class="seat_av" id="D22">22</li>
+                                    <li class="seat_av" id="D23">23</li>
+                                    <li class="seat_av" id="D24">24</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="D25">25</li>
+                                    <li class="seat_av" id="D26">26</li>
+                                    <li class="seat_av" id="D27">27</li>
+                                    <li class="seat_av" id="D28">28</li>
+                                    <li class="seat_av" id="D29">29</li>
+                                    <li class="seat_av" id="D30">30</li>
+                                    <li class="seat_av" id="D31">31</li>
+                                    <li class="seat_av" id="D32">32</li>
+                                    <li class="seat_av" id="D33">33</li>
+                                    <li class="seat-name">D</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">E</li>
+                                    <li class="seat_av" id="E1">1</li>
+                                    <li class="seat_av" id="E2">2</li>
+                                    <li class="seat_av" id="E3">3</li>
+                                    <li class="seat_av" id="E4">4</li>
+                                    <li class="seat_av" id="E5">5</li>
+                                    <li class="seat_av" id="E6">6</li>
+                                    <li class="seat_av" id="E7">7</li>
+                                    <li class="seat_av" id="E8">8</li>
+                                    <li class="seat_av" id="E9">9</li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="E10">10</li>
+                                    <li class="seat_av" id="E11">11</li>
+                                    <li class="seat_av" id="E12">12</li>
+                                    <li class="seat_av" id="E13">13</li>
+                                    <li class="seat_av" id="E14">14</li>
+                                    <li class="seat_av" id="E15">15</li>
+                                    <li class="seat_av" id="E16">16</li>
+                                    <li class="seat_av" id="E17">17</li>
+                                    <li class="seat_av" id="E18">18</li>
+                                    <li class="seat_av" id="E19">19</li>
+                                    <li class="seat_av" id="E20">20</li>
+                                    <li class="seat_av" id="E21">21</li>
+                                    <li class="seat_av" id="E22">22</li>
+                                    <li class="seat_av" id="E23">23</li>
+                                    <li class="seat_av" id="E24">24</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="E25">25</li>
+                                    <li class="seat_av" id="E26">26</li>
+                                    <li class="seat_av" id="E27">27</li>
+                                    <li class="seat_av" id="E28">28</li>
+                                    <li class="seat_av" id="E29">29</li>
+                                    <li class="seat_av" id="E30">30</li>
+                                    <li class="seat_av" id="E31">31</li>
+                                    <li class="seat_av" id="E32">32</li>
+                                    <li class="seat_av" id="E33">33</li>
+                                    <li class="seat-name">E</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">F</li>
+                                    <li class="seat_av" id="F1">1</li>
+                                    <li class="seat_av" id="F2">2</li>
+                                    <li class="seat_av" id="F3">3</li>
+                                    <li class="seat_av" id="F4">4</li>
+                                    <li class="seat_av" id="F5">5</li>
+                                    <li class="seat_av" id="F6">6</li>
+                                    <li class="seat_av" id="F7">7</li>
+                                    <li class="seat_av" id="F8">8</li>
+                                    <li class="seat_av" id="F9">9</li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="F10">10</li>
+                                    <li class="seat_av" id="F11">11</li>
+                                    <li class="seat_av" id="F12">12</li>
+                                    <li class="seat_av" id="F13">13</li>
+                                    <li class="seat_av" id="F14">14</li>
+                                    <li class="seat_av" id="F15">15</li>
+                                    <li class="seat_av" id="F16">16</li>
+                                    <li class="seat_av" id="F17">17</li>
+                                    <li class="seat_av" id="F18">18</li>
+                                    <li class="seat_av" id="F19">19</li>
+                                    <li class="seat_av" id="F20">20</li>
+                                    <li class="seat_av" id="F21">21</li>
+                                    <li class="seat_av" id="F22">22</li>
+                                    <li class="seat_av" id="F23">23</li>
+                                    <li class="seat_av" id="F24">24</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="F25">25</li>
+                                    <li class="seat_av" id="F26">26</li>
+                                    <li class="seat_av" id="F27">27</li>
+                                    <li class="seat_av" id="F28">28</li>
+                                    <li class="seat_av" id="F29">29</li>
+                                    <li class="seat_av" id="F30">30</li>
+                                    <li class="seat_av" id="F31">31</li>
+                                    <li class="seat_av" id="F32">32</li>
+                                    <li class="seat_av" id="F33">33</li>
+                                    <li class="seat-name">F</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">G</li>
+                                    <li class="seat_av" id="G1">1</li>
+                                    <li class="seat_av" id="G2">2</li>
+                                    <li class="seat_av" id="G3">3</li>
+                                    <li class="seat_av" id="G4">4</li>
+                                    <li class="seat_av" id="G5">5</li>
+                                    <li class="seat_av" id="G6">6</li>
+                                    <li class="seat_av" id="G7">7</li>
+                                    <li class="seat_av" id="G8">8</li>
+                                    <li class="seat_av" id="G9">9</li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="G10">10</li>
+                                    <li class="seat_av" id="G11">11</li>
+                                    <li class="seat_av" id="G12">12</li>
+                                    <li class="seat_av" id="G13">13</li>
+                                    <li class="seat_av" id="G14">14</li>
+                                    <li class="seat_av" id="G15">15</li>
+                                    <li class="seat_av" id="G16">16</li>
+                                    <li class="seat_av" id="G17">17</li>
+                                    <li class="seat_av" id="G18">18</li>
+                                    <li class="seat_av" id="G19">19</li>
+                                    <li class="seat_av" id="G20">20</li>
+                                    <li class="seat_av" id="G21">21</li>
+                                    <li class="seat_av" id="G22">22</li>
+                                    <li class="seat_av" id="G23">23</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="G24">24</li>
+                                    <li class="seat_av" id="G25">25</li>
+                                    <li class="seat_av" id="G26">26</li>
+                                    <li class="seat_av" id="G27">27</li>
+                                    <li class="seat_av" id="G28">28</li>
+                                    <li class="seat_av" id="G29">29</li>
+                                    <li class="seat_av" id="G30">30</li>
+                                    <li class="seat_av" id="G31">31</li>
+                                    <li class="seat_av" id="G32">32</li>
+                                    <li class="seat-name">G</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">H</li>
+                                    <li class="seat_av" id="H1">1</li>
+                                    <li class="seat_av" id="H2">2</li>
+                                    <li class="seat_av" id="H3">3</li>
+                                    <li class="seat_av" id="H4">4</li>
+                                    <li class="seat_av" id="H5">5</li>
+                                    <li class="seat_av" id="H6">6</li>
+                                    <li class="seat_av" id="H7">7</li>
+                                    <li class="seat_av" id="H8">8</li>
+                                    <li class="seat_av" id="H9">9</li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="H10">10</li>
+                                    <li class="seat_av" id="H11">11</li>
+                                    <li class="seat_av" id="H12">12</li>
+                                    <li class="seat_av" id="H13">13</li>
+                                    <li class="seat_av" id="H14">14</li>
+                                    <li class="seat_av" id="H15">15</li>
+                                    <li class="seat_av" id="H16">16</li>
+                                    <li class="seat_av" id="H17">17</li>
+                                    <li class="seat_av" id="H18">18</li>
+                                    <li class="seat_av" id="H19">19</li>
+                                    <li class="seat_av" id="H20">20</li>
+                                    <li class="seat_av" id="H21">21</li>
+                                    <li class="seat_av" id="H22">22</li>
+                                    <li class="seat_av" id="H23">23</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="H24">24</li>
+                                    <li class="seat_av" id="H25">25</li>
+                                    <li class="seat_av" id="H26">26</li>
+                                    <li class="seat_av" id="H27">27</li>
+                                    <li class="seat_av" id="H28">28</li>
+                                    <li class="seat_av" id="H29">29</li>
+                                    <li class="seat_av" id="H30">30</li>
+                                    <li class="seat_av" id="H31">31</li>
+                                    <li class="seat_av" id="H32">32</li>
+                                    <li class="seat-name">H</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">I</li>
+                                    <li class="seat_av" id="I1">1</li>
+                                    <li class="seat_av" id="I2">2</li>
+                                    <li class="seat_av" id="I3">3</li>
+                                    <li class="seat_av" id="I4">4</li>
+                                    <li class="seat_av" id="I5">5</li>
+                                    <li class="seat_av" id="I6">6</li>
+                                    <li class="seat_av" id="I7">7</li>
+                                    <li class="seat_av" id="I8">8</li>
+                                    <li class="seat_av" id="I9">9</li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="I10">10</li>
+                                    <li class="seat_av" id="I11">11</li>
+                                    <li class="seat_av" id="I12">12</li>
+                                    <li class="seat_av" id="I13">13</li>
+                                    <li class="seat_av" id="I14">14</li>
+                                    <li class="seat_av" id="I15">15</li>
+                                    <li class="seat_av" id="I16">16</li>
+                                    <li class="seat_av" id="I17">17</li>
+                                    <li class="seat_av" id="I18">18</li>
+                                    <li class="seat_av" id="I19">19</li>
+                                    <li class="seat_av" id="I20">20</li>
+                                    <li class="seat_av" id="I21">21</li>
+                                    <li class="seat_av" id="I22">22</li>
+                                    <li class="seat_av" id="I23">23</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="I24">24</li>
+                                    <li class="seat_av" id="I25">25</li>
+                                    <li class="seat_av" id="I26">26</li>
+                                    <li class="seat_av" id="I27">27</li>
+                                    <li class="seat_av" id="I28">28</li>
+                                    <li class="seat_av" id="I29">29</li>
+                                    <li class="seat_av" id="I30">30</li>
+                                    <li class="seat_av" id="I31">31</li>
+                                    <li class="seat_av" id="I32">32</li>
+                                    <li class="seat-name">I</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">J</li>
+                                    <li class="seat_av" id="J1">1</li>
+                                    <li class="seat_av" id="J2">2</li>
+                                    <li class="seat_av" id="J3">3</li>
+                                    <li class="seat_av" id="J4">4</li>
+                                    <li class="seat_av" id="J5">5</li>
+                                    <li class="seat_av" id="J6">6</li>
+                                    <li class="seat_av" id="J7">7</li>
+                                    <li class="seat_av" id="J8">8</li>
+                                    <li class="seat_av" id="J9">9</li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="J10">10</li>
+                                    <li class="seat_av" id="J11">11</li>
+                                    <li class="seat_av" id="J12">12</li>
+                                    <li class="seat_av" id="J13">13</li>
+                                    <li class="seat_av" id="J14">14</li>
+                                    <li class="seat_av" id="J15">15</li>
+                                    <li class="seat_av" id="J16">16</li>
+                                    <li class="seat_av" id="J17">17</li>
+                                    <li class="seat_av" id="J18">18</li>
+                                    <li class="seat_av" id="J19">19</li>
+                                    <li class="seat_av" id="J20">20</li>
+                                    <li class="seat_av" id="J21">21</li>
+                                    <li class="seat_av" id="J22">22</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="J23">23</li>
+                                    <li class="seat_av" id="J24">24</li>
+                                    <li class="seat_av" id="J25">25</li>
+                                    <li class="seat_av" id="J26">26</li>
+                                    <li class="seat_av" id="J27">27</li>
+                                    <li class="seat_av" id="J28">28</li>
+                                    <li class="seat_av" id="J29">29</li>
+                                    <li class="seat_av" id="J30">30</li>
+                                    <li class="seat_av" id="J31">31</li>
+                                    <li class="seat-name">J</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">K</li>
+                                    <li class="seat_av" id="K1">1</li>
+                                    <li class="seat_av" id="K2">2</li>
+                                    <li class="seat_av" id="K3">3</li>
+                                    <li class="seat_av" id="K4">4</li>
+                                    <li class="seat_av" id="K5">5</li>
+                                    <li class="seat_av" id="K6">6</li>
+                                    <li class="seat_av" id="K7">7</li>
+                                    <li class="seat_av" id="K8">8</li>
+                                    <li class="seat_av" id="K9">9</li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="K10">10</li>
+                                    <li class="seat_av" id="K11">11</li>
+                                    <li class="seat_av" id="K12">12</li>
+                                    <li class="seat_av" id="K13">13</li>
+                                    <li class="seat_av" id="K14">14</li>
+                                    <li class="seat_av" id="K15">15</li>
+                                    <li class="seat_av" id="K16">16</li>
+                                    <li class="seat_av" id="K17">17</li>
+                                    <li class="seat_av" id="K18">18</li>
+                                    <li class="seat_av" id="K19">19</li>
+                                    <li class="seat_av" id="K20">20</li>
+                                    <li class="seat_av" id="K21">21</li>
+                                    <li class="seat_av" id="K22">22</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="K23">23</li>
+                                    <li class="seat_av" id="K24">24</li>
+                                    <li class="seat_av" id="K25">25</li>
+                                    <li class="seat_av" id="K26">26</li>
+                                    <li class="seat_av" id="K27">27</li>
+                                    <li class="seat_av" id="K28">28</li>
+                                    <li class="seat_av" id="K29">29</li>
+                                    <li class="seat_av" id="K30">30</li>
+                                    <li class="seat_av" id="K31">31</li>
+                                    <li class="seat-name">K</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">L</li>
+                                    <li class="seat_av" id="L1">1</li>
+                                    <li class="seat_av" id="L2">2</li>
+                                    <li class="seat_av" id="L3">3</li>
+                                    <li class="seat_av" id="L4">4</li>
+                                    <li class="seat_av" id="L5">5</li>
+                                    <li class="seat_av" id="L6">6</li>
+                                    <li class="seat_av" id="L7">7</li>
+                                    <li class="seat_av" id="L8">8</li>
+                                    <li class="seat_av" id="L9">9</li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="L10">10</li>
+                                    <li class="seat_av" id="L11">11</li>
+                                    <li class="seat_av" id="L12">12</li>
+                                    <li class="seat_av" id="L13">13</li>
+                                    <li class="seat_av" id="L14">14</li>
+                                    <li class="seat_av" id="L15">15</li>
+                                    <li class="seat_av" id="L16">16</li>
+                                    <li class="seat_av" id="L17">17</li>
+                                    <li class="seat_av" id="L18">18</li>
+                                    <li class="seat_av" id="L19">19</li>
+                                    <li class="seat_av" id="L20">20</li>
+                                    <li class="seat_av" id="L21">21</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="L22">22</li>
+                                    <li class="seat_av" id="L23">23</li>
+                                    <li class="seat_av" id="L24">24</li>
+                                    <li class="seat_av" id="L25">25</li>
+                                    <li class="seat_av" id="L26">26</li>
+                                    <li class="seat_av" id="L27">27</li>
+                                    <li class="seat_av" id="L28">28</li>
+                                    <li class="seat_av" id="L29">29</li>
+                                    <li class="seat_av" id="L30">30</li>
+                                    <li class="seat-name">L</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">M</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="M1">1</li>
+                                    <li class="seat_av" id="M2">2</li>
+                                    <li class="seat_av" id="M3">3</li>
+                                    <li class="seat_av" id="M4">4</li>
+                                    <li class="seat_av" id="M5">5</li>
+                                    <li class="seat_av" id="M6">6</li>
+                                    <li class="seat_av" id="M7">7</li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="M8">8</li>
+                                    <li class="seat_av" id="M9">9</li>
+                                    <li class="seat_av" id="M10">10</li>
+                                    <li class="seat_av" id="M11">11</li>
+                                    <li class="seat_av" id="M12">12</li>
+                                    <li class="seat_av" id="M13">13</li>
+                                    <li class="seat_av" id="M14">14</li>
+                                    <li class="seat_av" id="M15">15</li>
+                                    <li class="seat_av" id="M16">16</li>
+                                    <li class="seat_av" id="M17">17</li>
+                                    <li class="seat_av" id="M18">18</li>
+                                    <li class="seat_av" id="M19">19</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="M20">20</li>
+                                    <li class="seat_av" id="M21">21</li>
+                                    <li class="seat_av" id="M22">22</li>
+                                    <li class="seat_av" id="M23">23</li>
+                                    <li class="seat_av" id="M24">24</li>
+                                    <li class="seat_av" id="M25">25</li>
+                                    <li class="seat_av" id="M26">26</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat-name">M</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">N</li>
+                                    <li class="seat_av" id="N1">1</li>
+                                    <li class="seat_av" id="N2">2</li>
+                                    <li class="seat_av" id="N3">3</li>
+                                    <li class="seat_av" id="N4">4</li>
+                                    <li class="seat_av" id="N5">5</li>
+                                    <li class="seat_av" id="N6">6</li>
+                                    <li class="seat_av" id="N7">7</li>
+                                    <li class="seat_av" id="N8">8</li>
+                                    <li class="seat_av" id="N9">9</li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="N10">10</li>
+                                    <li class="seat_av" id="N11">11</li>
+                                    <li class="seat_av" id="N12">12</li>
+                                    <li class="seat_av" id="N13">13</li>
+                                    <li class="seat_av" id="N14">14</li>
+                                    <li class="seat_av" id="N15">15</li>
+                                    <li class="seat_av" id="N16">16</li>
+                                    <li class="seat_av" id="N17">17</li>
+                                    <li class="seat_av" id="N18">18</li>
+                                    <li class="seat_av" id="N19">19</li>
+                                    <li class="seat_av" id="N20">20</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="N21">21</li>
+                                    <li class="seat_av" id="N22">22</li>
+                                    <li class="seat_av" id="N23">23</li>
+                                    <li class="seat_av" id="N24">24</li>
+                                    <li class="seat_av" id="N25">25</li>
+                                    <li class="seat_av" id="N26">26</li>
+                                    <li class="seat_av" id="N27">27</li>
+                                    <li class="seat_av" id="N28">28</li>
+                                    <li class="seat_av" id="N29">29</li>
+                                    <li class="seat-name">N</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">O</li>
+                                    <li class="seat_av" id="O1">1</li>
+                                    <li class="seat_av" id="O2">2</li>
+                                    <li class="seat_av" id="O3">3</li>
+                                    <li class="seat_av" id="O4">4</li>
+                                    <li class="seat_av" id="O5">5</li>
+                                    <li class="seat_av" id="O6">6</li>
+                                    <li class="seat_av" id="O7">7</li>
+                                    <li class="seat_av" id="O8">8</li>
+                                    <li class="seat_av" id="O9">9</li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="O10">10</li>
+                                    <li class="seat_av" id="O11">11</li>
+                                    <li class="seat_av" id="O12">12</li>
+                                    <li class="seat_av" id="O13">13</li>
+                                    <li class="seat_av" id="O14">14</li>
+                                    <li class="seat_av" id="O15">15</li>
+                                    <li class="seat_av" id="O16">16</li>
+                                    <li class="seat_av" id="O17">17</li>
+                                    <li class="seat_av" id="O18">18</li>
+                                    <li class="seat_av" id="O19">19</li>
+                                    <li class="seat_av" id="O20">20</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat_av" id="O21">21</li>
+                                    <li class="seat_av" id="O22">22</li>
+                                    <li class="seat_av" id="O23">23</li>
+                                    <li class="seat_av" id="O24">24</li>
+                                    <li class="seat_av" id="O25">25</li>
+                                    <li class="seat_av" id="O26">26</li>
+                                    <li class="seat_av" id="O27">27</li>
+                                    <li class="seat_av" id="O28">28</li>
+                                    <li class="seat_av" id="O29">29</li>
+                                    <li class="seat-name">O</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <ul style="width:1085px">
+                                    <li class="seat-name initial-ctrl" data-tickettype="scr1fc">P</li>
+                                    <li class="seat_av" id="P1">1</li>
+                                    <li class="seat_av" id="P2">2</li>
+                                    <li class="seat_av" id="P3">3</li>
+                                    <li class="seat_av" id="P4">4</li>
+                                    <li class="seat_av" id="P5">5</li>
+                                    <li class="seat_av" id="P6">6</li>
+                                    <li class="seat_av" id="P7">7</li>
+                                    <li class="seat_av" id="P8">8</li>
+                                    <li class="seat_av" id="P9">9</li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="path"></li>
+                                    <li class="seat-name">P</li>
+                                </ul>
+                                <div style="clear:both"></div>
+                                <div class="screen">
+                                    <div class="screen-text">SCREEN</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-summary">
+                <div class="summary-details">
+                    <div class="selected-seats">
+                        <h4>Selected Seats</h4>
+                        <p id="selectedSeatsDisplay">None</p>
+                    </div>
+                    <div class="amount">
+                        <h4>Total Amount</h4>
+                        <p id="totalAmount">₹0</p>
+                    </div>
+                </div>
+                <button id="proceedToCheckout" class="checkout-btn" disabled>
+                    Proceed to Checkout
+                </button>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

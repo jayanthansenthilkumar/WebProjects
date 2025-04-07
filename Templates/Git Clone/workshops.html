@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshops - Git & GitHub Training</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar with active state on Workshops -->
+        <nav class="sidebar fixed">
+            // ...existing sidebar code...
+        </nav>
+        <main class="content">
+            <header class="top-bar fixed">
+                <h1>Available Workshops</h1>
+                <div class="search-bar">
+                    <span class="material-icons">search</span>
+                    <input type="text" placeholder="Search workshops...">
+                </div>
+            </header>
+
+            <div class="workshops-grid">
+                <div class="workshop-card">
+                    <div class="workshop-header">
+                        <i class="devicon-git-plain colored"></i>
+                        <span class="badge-new">New</span>
+                    </div>
+                    <h3>Git Fundamentals</h3>
+                    <p>Master the basics of version control</p>
+                    <div class="workshop-details">
+                        <span><i class="material-icons">schedule</i>2 hours</span>
+                        <span><i class="material-icons">groups</i>30 seats</span>
+                    </div>
+                    <button class="enroll-btn">Enroll Now</button>
+                </div>
+
+                <div class="workshop-card">
+                    <div class="workshop-header">
+                        <i class="devicon-github-original colored"></i>
+                    </div>
+                    <h3>GitHub Advanced</h3>
+                    <p>Collaboration and workflow strategies</p>
+                    <div class="workshop-details">
+                        <span><i class="material-icons">schedule</i>3 hours</span>
+                        <span><i class="material-icons">groups</i>25 seats</span>
+                    </div>
+                    <button class="enroll-btn">Enroll Now</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

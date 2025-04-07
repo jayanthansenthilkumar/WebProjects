@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributors - Git & GitHub Workshop</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <nav class="sidebar fixed">
+            <div class="logo">
+                <span class="material-icons">code</span>
+                <h2>Git Workshop</h2>
+            </div>
+            <div class="menu">
+                <a href="index.html"><span class="material-icons">dashboard</span>Dashboard</a>
+                <a href="#" class="active"><span class="material-icons">people</span>Contributors</a>
+                <a href="#"><span class="material-icons">school</span>Resources</a>
+                <a href="#"><span class="material-icons">settings</span>Settings</a>
+            </div>
+        </nav>
+        
+        <main class="content">
+            <header class="top-bar fixed">
+                <h1>Workshop Contributors</h1>
+                <div class="search-bar">
+                    <span class="material-icons">search</span>
+                    <input type="text" id="searchInput" placeholder="Search contributors...">
+                </div>
+            </header>
+
+            <div class="table-container">
+                <table class="contributors-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>GitHub ID</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contributorsTableBody">
+                        <!-- Table rows will be added by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script src="contributors.js"></script>
+</body>
+</html>
