@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SnapCert - HOD Dashboard</title>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+<body>
+    <div class="dashboard">
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="ri-verified-badge-fill"></i> SnapCert
+            </div>
+            <ul>
+                <li class="active"><a href="index.html"><i class="ri-dashboard-line"></i> Overview</a></li>
+                <li><a href="faculty.html"><i class="ri-group-line"></i> Faculty</a></li>
+                <li><a href="students.html"><i class="ri-graduation-cap-line"></i> Students</a></li>
+                <li><a href="schedule.html"><i class="ri-calendar-event-line"></i> Schedule</a></li>
+                <li><a href="reports.html"><i class="ri-file-chart-line"></i> Reports</a></li>
+                <li><a href="notifications.html"><i class="ri-notification-3-line"></i> Notifications</a></li>
+                <li><a href="settings.html"><i class="ri-settings-4-line"></i> Settings</a></li>
+            </ul>
+            <!-- <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=John+Doe" alt="HOD" class="avatar">
+                <div class="user-details">
+                    <h4>Dr. John Doe</h4>
+                    <p>Computer Science</p>
+                </div>
+            </div> -->
+        </nav>
+        <main>
+            <header class="main-header">
+                <div class="header-left">
+                    <div class="search-container">
+                        <i class="ri-search-line"></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="header-actions">
+                        <!-- Removed theme toggle button -->
+                        <button class="action-btn"><i class="ri-notification-3-line"></i></button>
+                        <button class="action-btn"><i class="ri-mail-line"></i></button>
+                    </div>
+                    <div class="header-user">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe&size=32" alt="User" class="header-avatar">
+                        <div class="user-info-header">
+                            <span class="user-name">Dr. John Doe <i class="ri-arrow-down-s-line"></i></span>
+                            <span class="user-status">
+                                <span class="status-indicator"></span>
+                                Active
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="welcome-section">
+                <div class="welcome-card">
+                    <div class="welcome-content">
+                        <h2>Faculty Management</h2>
+                        <p class="welcome-subheading">Manage Department Faculty Members</p>
+                        <div class="quick-actions">
+                            <button class="action-button"><i class="ri-user-add-line"></i> Add New Faculty</button>
+                            <button class="action-button"><i class="ri-team-line"></i> View Teams</button>
+                            <button class="action-button"><i class="ri-mail-send-line"></i> Send Notice</button>
+                        </div>
+                    </div>
+                    <div class="floating-icons">
+                        <i class="ri-team-fill"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faculty-grid">
+                <div class="faculty-card">
+                    <div class="faculty-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Jane+Smith&background=ff6b6b&color=fff" alt="Faculty">
+                    </div>
+                    <div class="faculty-info">
+                        <h3>Dr. Jane Smith</h3>
+                        <p class="faculty-role">Professor - Computer Science</p>
+                        <div class="faculty-stats">
+                            <span><i class="ri-time-line"></i> 15 Years Experience</span>
+                            <span><i class="ri-star-fill"></i> 4.8/5 Rating</span>
+                        </div>
+                        <div class="faculty-actions">
+                            <button class="view-profile"><i class="ri-user-line"></i> View Profile</button>
+                            <button class="contact-faculty"><i class="ri-mail-line"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more faculty cards with the same structure -->
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

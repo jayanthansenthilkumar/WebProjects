@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapCert - Reports</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="ri-verified-badge-fill"></i> SnapCert
+            </div>
+            <ul>
+                <li><a href="index.html"><i class="ri-dashboard-line"></i> Overview</a></li>
+                <li><a href="faculty.html"><i class="ri-group-line"></i> Faculty</a></li>
+                <li><a href="students.html"><i class="ri-graduation-cap-line"></i> Students</a></li>
+                <li><a href="schedule.html"><i class="ri-calendar-event-line"></i> Schedule</a></li>
+                <li class="active"><a href="reports.html"><i class="ri-file-chart-line"></i> Reports</a></li>
+                <li><a href="notifications.html"><i class="ri-notification-3-line"></i> Notifications</a></li>
+                <li><a href="settings.html"><i class="ri-settings-4-line"></i> Settings</a></li>
+            </ul>
+        </nav>
+        <main>
+            <header class="main-header">
+                <div class="header-left">
+                    <div class="search-container">
+                        <i class="ri-search-line"></i>
+                        <input type="text" placeholder="Search reports...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="header-actions">
+                        <button class="action-btn"><i class="ri-notification-3-line"></i></button>
+                        <button class="action-btn"><i class="ri-mail-line"></i></button>
+                    </div>
+                    <div class="header-user">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe&size=32" alt="User" class="header-avatar">
+                        <div class="user-info-header">
+                            <span class="user-name">Dr. John Doe <i class="ri-arrow-down-s-line"></i></span>
+                            <span class="user-status">
+                                <span class="status-indicator"></span>
+                                Active
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="welcome-section">
+                <div class="welcome-card">
+                    <div class="welcome-content">
+                        <h2>Reports Dashboard</h2>
+                        <p class="welcome-subheading">View and generate department reports</p>
+                        <div class="quick-actions">
+                            <button class="action-button"><i class="ri-file-add-line"></i> New Report</button>
+                            <button class="action-button"><i class="ri-download-cloud-line"></i> Download All</button>
+                            <button class="action-button"><i class="ri-share-line"></i> Share Reports</button>
+                        </div>
+                    </div>
+                    <div class="floating-icons">
+                        <i class="ri-file-chart-line"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-filters">
+                <select class="filter-select">
+                    <option>All Reports</option>
+                    <option>Academic Reports</option>
+                    <option>Attendance Reports</option>
+                    <option>Performance Reports</option>
+                </select>
+                <select class="filter-select">
+                    <option>This Month</option>
+                    <option>Last Month</option>
+                    <option>Last 3 Months</option>
+                    <option>Custom Range</option>
+                </select>
+            </div>
+
+            <div class="grid-container">
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <div class="report-icon">
+                            <i class="ri-file-chart-line"></i>
+                        </div>
+                        <div class="report-info">
+                            <h3>Academic Performance Report</h3>
+                            <p>Last updated: Today</p>
+                            <div class="report-stats">
+                                <span><i class="ri-eye-line"></i> 245 views</span>
+                                <span><i class="ri-download-line"></i> 68 downloads</span>
+                            </div>
+                        </div>
+                        <div class="report-actions">
+                            <button class="view-report">View Report</button>
+                            <button class="download-report"><i class="ri-download-line"></i></button>
+                        </div>
+                    </div>
+                    <!-- Repeat for other report cards -->
+                </div>
+
+                <div class="chart-container">
+                    <h3>Report Generation Trends</h3>
+                    <canvas id="reportsChart"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

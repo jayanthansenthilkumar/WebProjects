@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapCert - Schedule Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="ri-verified-badge-fill"></i> SnapCert
+            </div>
+            <ul>
+                <li><a href="index.html"><i class="ri-dashboard-line"></i> Overview</a></li>
+                <li><a href="faculty.html"><i class="ri-group-line"></i> Faculty</a></li>
+                <li><a href="students.html"><i class="ri-graduation-cap-line"></i> Students</a></li>
+                <li class="active"><a href="schedule.html"><i class="ri-calendar-event-line"></i> Schedule</a></li>
+                <li><a href="reports.html"><i class="ri-file-chart-line"></i> Reports</a></li>
+                <li><a href="notifications.html"><i class="ri-notification-3-line"></i> Notifications</a></li>
+                <li><a href="settings.html"><i class="ri-settings-4-line"></i> Settings</a></li>
+            </ul>
+        </nav>
+        <main>
+            <header class="main-header">
+                <div class="header-left">
+                    <div class="search-container">
+                        <i class="ri-search-line"></i>
+                        <input type="text" placeholder="Search schedules...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="header-actions">
+                        <button class="action-btn"><i class="ri-notification-3-line"></i></button>
+                        <button class="action-btn"><i class="ri-mail-line"></i></button>
+                    </div>
+                    <div class="header-user">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe&size=32" alt="User" class="header-avatar">
+                        <div class="user-info-header">
+                            <span class="user-name">Dr. John Doe <i class="ri-arrow-down-s-line"></i></span>
+                            <span class="user-status">
+                                <span class="status-indicator"></span>
+                                Active
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="welcome-section">
+                <div class="welcome-card">
+                    <div class="welcome-content">
+                        <h2>Schedule Management</h2>
+                        <p class="welcome-subheading">View and Manage Class Schedules</p>
+                        <div class="quick-actions">
+                            <button class="action-button"><i class="ri-add-line"></i> Add Schedule</button>
+                            <button class="action-button"><i class="ri-calendar-line"></i> View Calendar</button>
+                            <button class="action-button"><i class="ri-file-download-line"></i> Export Schedule</button>
+                        </div>
+                    </div>
+                    <div class="floating-icons">
+                        <i class="ri-calendar-event-line"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="year-tabs">
+                <button class="year-tab active" data-year="1">First Year</button>
+                <button class="year-tab" data-year="2">Second Year</button>
+                <button class="year-tab" data-year="3">Third Year</button>
+                <button class="year-tab" data-year="4">Fourth Year</button>
+            </div>
+
+            <div class="schedule-container" data-year="1">
+                <div class="timetable-grid">
+                    <table class="timetable">
+                        <tr>
+                            <th class="time-header">Day/Time</th>
+                            <th>8:00<br>-<br>9:00</th>
+                            <th>9:00<br>-<br>10:00</th>
+                            <th>10:00<br>-<br>10:15</th>
+                            <th>10:15<br>-<br>11:15</th>
+                            <th>11:15<br>-<br>12:15</th>
+                            <th>12:15<br>-<br>1:15</th>
+                            <th>1:15<br>-<br>2:15</th>
+                            <th>2:15<br>-<br>2:30</th>
+                            <th>2:30<br>-<br>3:30</th>
+                            <th>3:30<br>-<br>4:30</th>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Monday</td>
+                            <td class="mathematics">Mathematics<br>Dr. Smith<br>Room 101</td>
+                            <td class="physics">Physics Lab<br>Dr. Johnson<br>Lab 102</td>
+                            <td class="break-slot" colspan="1">Break</td>
+                            <td class="physics">Physics Lab<br>Dr. Johnson<br>Lab 102</td>
+                            <td class="chemistry">Chemistry<br>Dr. Williams<br>Room 103</td>
+                            <td class="lunch-break">Lunch Break</td>
+                            <td class="computer-science">Programming<br>Dr. Brown<br>Lab 201</td>
+                            <td class="break-slot">Break</td>
+                            <td class="mathematics">Mathematics<br>Dr. Smith<br>Room 101</td>
+                            <td class="physics">Physics<br>Dr. Johnson<br>Room 102</td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Tuesday</td>
+                            <td class="chemistry">Chemistry<br>Dr. Williams<br>Room 103</td>
+                            <td class="mathematics">Mathematics<br>Dr. Smith<br>Room 101</td>
+                            <td class="break-slot" colspan="1">Break</td>
+                            <td class="computer-science">Programming<br>Dr. Brown<br>Lab 201</td>
+                            <td class="physics">Physics<br>Dr. Johnson<br>Room 102</td>
+                            <td class="lunch-break">Lunch Break</td>
+                            <td class="mathematics">Mathematics<br>Dr. Smith<br>Room 101</td>
+                            <td class="break-slot">Break</td>
+                            <td class="chemistry">Chemistry Lab<br>Dr. Williams<br>Lab 103</td>
+                            <td class="computer-science">Programming<br>Dr. Brown<br>Lab 201</td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Wednesday</td>
+                            <td class="physics">Physics<br>Dr. Johnson<br>Room 102</td>
+                            <td class="computer-science">Programming Lab<br>Dr. Brown<br>Lab 201</td>
+                            <td class="break-slot" colspan="1">Break</td>
+                            <td class="computer-science">Programming Lab<br>Dr. Brown<br>Lab 201</td>
+                            <td class="mathematics">Mathematics<br>Dr. Smith<br>Room 101</td>
+                            <td class="lunch-break">Lunch Break</td>
+                            <td class="chemistry">Chemistry Lab<br>Dr. Williams<br>Lab 103</td>
+                            <td class="break-slot">Break</td>
+                            <td class="chemistry">Chemistry Lab<br>Dr. Williams<br>Lab 103</td>
+                            <td class="physics">Physics<br>Dr. Johnson<br>Room 102</td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Thursday</td>
+                            <td class="computer-science">Programming<br>Dr. Brown<br>Lab 201</td>
+                            <td class="chemistry">Chemistry<br>Dr. Williams<br>Room 103</td>
+                            <td class="break-slot" colspan="1">Break</td>
+                            <td class="mathematics">Mathematics<br>Dr. Smith<br>Room 101</td>
+                            <td class="physics">Physics Lab<br>Dr. Johnson<br>Lab 102</td>
+                            <td class="lunch-break">Lunch Break</td>
+                            <td class="physics">Physics Lab<br>Dr. Johnson<br>Lab 102</td>
+                            <td class="break-slot">Break</td>
+                            <td class="computer-science">Programming<br>Dr. Brown<br>Lab 201</td>
+                            <td class="mathematics">Mathematics<br>Dr. Smith<br>Room 101</td>
+                        </tr>
+                        <tr>
+                            <td class="day-cell">Friday</td>
+                            <td class="mathematics">Mathematics<br>Dr. Smith<br>Room 101</td>
+                            <td class="physics">Physics<br>Dr. Johnson<br>Room 102</td>
+                            <td class="break-slot" colspan="1">Break</td>
+                            <td class="chemistry">Chemistry<br>Dr. Williams<br>Room 103</td>
+                            <td class="computer-science">Programming<br>Dr. Brown<br>Lab 201</td>
+                            <td class="lunch-break">Lunch Break</td>
+                            <td class="mathematics">Mathematics<br>Dr. Smith<br>Room 101</td>
+                            <td class="break-slot">Break</td>
+                            <td class="physics">Physics<br>Dr. Johnson<br>Room 102</td>
+                            <td class="chemistry">Chemistry<br>Dr. Williams<br>Room 103</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Second Year Schedule -->
+            <div class="schedule-container" data-year="2" style="display: none;">
+                <!-- Copy the table structure above and modify subjects/faculty for 2nd year -->
+            </div>
+
+            <!-- Third Year Schedule -->
+            <div class="schedule-container" data-year="3" style="display: none;">
+                <!-- Copy the table structure above and modify subjects/faculty for 3rd year -->
+            </div>
+
+            <!-- Fourth Year Schedule -->
+            <div class="schedule-container" data-year="4" style="display: none;">
+                <!-- Copy the table structure above and modify subjects/faculty for 4th year -->
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

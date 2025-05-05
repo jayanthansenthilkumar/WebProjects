@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapCert - HOD Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="ri-verified-badge-fill"></i> SnapCert
+            </div>
+            <ul>
+                <li class="active"><a href="index.html"><i class="ri-dashboard-line"></i> Overview</a></li>
+                <li><a href="faculty.html"><i class="ri-group-line"></i> Faculty</a></li>
+                <li><a href="students.html"><i class="ri-graduation-cap-line"></i> Students</a></li>
+                <li><a href="schedule.html"><i class="ri-calendar-event-line"></i> Schedule</a></li>
+                <li><a href="reports.html"><i class="ri-file-chart-line"></i> Reports</a></li>
+                <li><a href="notifications.html"><i class="ri-notification-3-line"></i> Notifications</a></li>
+                <li><a href="settings.html"><i class="ri-settings-4-line"></i> Settings</a></li>
+            </ul>
+            <!-- <div class="user-info">
+                <img src="https://ui-avatars.com/api/?name=John+Doe" alt="HOD" class="avatar">
+                <div class="user-details">
+                    <h4>Dr. John Doe</h4>
+                    <p>Computer Science</p>
+                </div>
+            </div> -->
+        </nav>
+        <main>
+            <header class="main-header">
+                <div class="header-left">
+                    <div class="search-container">
+                        <i class="ri-search-line"></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="header-actions">
+                        <!-- Removed theme toggle button -->
+                        <button class="action-btn"><i class="ri-notification-3-line"></i></button>
+                        <button class="action-btn"><i class="ri-mail-line"></i></button>
+                    </div>
+                    <div class="header-user">
+                        <img src="https://ui-avatars.com/api/?name=John+Doe&size=32" alt="User" class="header-avatar">
+                        <div class="user-info-header">
+                            <span class="user-name">Dr. John Doe <i class="ri-arrow-down-s-line"></i></span>
+                            <span class="user-status">
+                                <span class="status-indicator"></span>
+                                Active
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="welcome-section">
+                <div class="welcome-card">
+                    <div class="welcome-content">
+                        <h2>Welcome Back, Dr. Chitrakala K!</h2>
+                        <p class="welcome-subheading">Department of Freshmen Engineering</p>
+                        <div class="quick-actions">
+                            <button class="action-button"><i class="ri-user-add-line"></i> Add Faculty</button>
+                            <button class="action-button"><i class="ri-file-list-3-line"></i> View Reports</button>
+                            <button class="action-button"><i class="ri-calendar-2-line"></i> Schedule</button>
+                        </div>
+                    </div>
+                    <div class="floating-icons">
+                        <i class="ri-award-fill"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Faculty</h3>
+                    <p class="number">24</p>
+                    <span class="trend positive">+2 New</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Students</h3>
+                    <p class="number">486</p>
+                    <span class="trend positive">92% Attendance</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Department Rank</h3>
+                    <p class="number">#2</p>
+                    <span class="trend positive">Up from #3</span>
+                </div>
+            </div>
+            <div class="grid-container">
+                <div class="chart-container">
+                    <h3>Academic Performance</h3>
+                    <canvas id="mainChart"></canvas>
+                </div>
+                <div class="upcoming-events">
+                    <h3>Upcoming Events</h3>
+                    <div class="event-list">
+                        <div class="event-item">
+                            <div class="event-date">Dec 15</div>
+                            <div class="event-info">
+                                <h4>Faculty Meeting</h4>
+                                <p>10:00 AM - Conference Room</p>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-date">Dec 18</div>
+                            <div class="event-info">
+                                <h4>Research Presentation</h4>
+                                <p>2:00 PM - Seminar Hall</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
