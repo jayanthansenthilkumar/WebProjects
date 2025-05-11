@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python SSA 3 & 4</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #5252e8;
+    --secondary-color: #7676ff;
+    --accent-color: #ff7676;
+    --dark-color: #2c3e50;
+    --light-color: #f8f9fa;
+    --code-bg: #f8f8f8;
+    --output-bg: #f0f7fb;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --text-color: #333;
+    --header-gradient: linear-gradient(135deg, #5252e8, #7676ff);
+    --card-gradient: linear-gradient(to bottom, white, #f9f9ff);
+    --success-color: #2ecc71;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--light-color);
+    background-image: 
+        radial-gradient(#e0e0ff 1px, transparent 1px),
+        radial-gradient(#e0e0ff 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: 0 0, 25px 25px;
+    padding-bottom: 30px;
+    font-weight: 300;
+}
+
+header {
+    background: var(--header-gradient);
+    color: white;
+    text-align: center;
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.6;
+}
+
+.header-subtitle {
+    font-weight: 300;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navbar {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+}
+
+.navbar li {
+    padding: 1rem 1.5rem;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: var(--dark-color);
+    font-weight: 500;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar a:hover {
+    color: var(--primary-color);
+}
+
+.navbar a i {
+    font-size: 0.9rem;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    position: relative;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+h1::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: white;
+    margin: 0.5rem auto;
+    border-radius: 2px;
+}
+
+h2 {
+    color: var(--dark-color);
+    margin: 3rem 0 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 3px solid var(--primary-color);
+    font-size: 1.8rem;
+    position: relative;
+    display: inline-block;
+    font-weight: 600;
+}
+
+h2::before {
+    content: "# ";
+    color: var(--primary-color);
+    opacity: 0.8;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.programs-container {
+    padding: 1rem 0;
+}
+
+.program-card {
+    background: var(--card-gradient);
+    border-radius: 12px;
+    margin-bottom: 40px;
+    padding: 25px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(230, 230, 255, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.program-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(135deg, transparent 70%, rgba(82, 82, 232, 0.05) 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.program-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(82, 82, 232, 0.1);
+    border-color: rgba(118, 118, 255, 0.3);
+}
+
+.program-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    font-size: 1.5rem;
+    position: relative;
+    font-weight: 600;
+}
+
+.program-card h3::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 80px;
+    height: 3px;
+    background: var(--accent-color);
+    border-radius: 2px;
+}
+
+.code-output-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+@media (min-width: 768px) {
+    .code-output-container {
+        flex-direction: row;
+    }
+    
+    .code, .output {
+        flex: 1;
+    }
+}
+
+.code, .output {
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.code {
+    background-color: var(--code-bg);
+    border-left: 5px solid #ddd;
+}
+
+.output {
+    background-color: var(--output-bg);
+    border-left: 5px solid var(--primary-color);
+}
+
+.code-header, .output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.code h4, .output h4 {
+    color: var(--dark-color);
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    padding: 2px 0;
+    font-weight: 500;
+    margin: 0;
+}
+
+.copy-btn {
+    background-color: rgba(82, 82, 232, 0.1);
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+.copy-btn:hover {
+    background-color: rgba(82, 82, 232, 0.2);
+}
+
+.copy-btn.copied {
+    background-color: rgba(46, 204, 113, 0.2);
+    color: var(--success-color);
+}
+
+pre {
+    white-space: pre-wrap;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    overflow-x: hidden; /* Hide horizontal scrollbar in other browsers */
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 15px;
+    border-radius: 5px;
+    position: relative;
+    max-width: 100%;
+    word-wrap: break-word;
+    scrollbar-width: none; /* Hide horizontal scrollbar in Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    overflow-x: hidden; /* Standard property */
+}
+
+code {
+    color: #333;
+    display: block;
+    overflow-x: hidden;
+    scrollbar-width: none; /* Also hide scrollbar in Firefox */
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+pre::-webkit-scrollbar, 
+code::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+    width: 0;
+    height: 0;
+}
+
+/* String Operations Category */
+.string-ops {
+    border-left: 5px solid #f39c12;
+}
+
+.string-ops h3::before {
+    background: #f39c12;
+}
+
+/* List Operations Category */
+.list-ops {
+    border-left: 5px solid #3498db;
+}
+
+.list-ops h3::before {
+    background: #3498db;
+}
+
+/* Dictionary Operations Category */
+.dict-ops {
+    border-left: 5px solid #9b59b6;
+}
+
+.dict-ops h3::before {
+    background: #9b59b6;
+}
+
+/* Other Categories */
+.regex-ops {
+    border-left: 5px solid #e74c3c;
+}
+
+.regex-ops h3::before {
+    background: #e74c3c;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    background-color: var(--dark-color);
+    color: white;
+    margin-top: 70px;
+    position: relative;
+}
+
+footer::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(135deg, transparent 49%, var(--dark-color) 50%);
+}
+
+footer p {
+    opacity: 0.8;
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.program-card {
+    animation: fadeIn 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.program-card:nth-child(1) { animation-delay: 0.1s; }
+.program-card:nth-child(2) { animation-delay: 0.2s; }
+.program-card:nth-child(3) { animation-delay: 0.3s; }
+.program-card:nth-child(4) { animation-delay: 0.4s; }
+.program-card:nth-child(5) { animation-delay: 0.5s; }
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--primary-color);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    background-color: var(--secondary-color);
+}
+
+/* Theme switch */
+.theme-switch {
+    position: fixed;
+    top: 100px;
+    right: 30px;
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    z-index: 1000;
+    border: none;
+    color: var(--dark-color);
+}
+
+.theme-switch:hover {
+    transform: rotate(30deg);
+}
+
+/* Code line numbers */
+pre {
+    counter-reset: line;
+}
+
+pre code {
+    display: block;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 2em;
+}
+
+pre code::before {
+    counter-increment: line;
+    content: counter(line);
+    position: absolute;
+    left: -1em;
+    width: 1.5em;
+    color: #888;
+    text-align: right;
+    font-size: 0.8em;
+    user-select: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .code, .output {
+        width: 100%;
+    }
+    
+    header {
+        padding: 2rem 1.5rem;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    .program-card {
+        padding: 20px 15px;
+    }
+    
+    pre {
+        font-size: 13px;
+    }
+
+    .theme-switch,
+    .back-to-top {
+        width: 40px;
+        height: 40px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Tooltip styles */
+.tooltip {
+    position: relative;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    background-color: var(--dark-color);
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.8rem;
+    width: max-content;
+    max-width: 200px;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Python SSA 3 & 4</h1>
+        <p class="header-subtitle">A comprehensive library of Python code examples for beginners and professionals</p>
+    </header>
+    
+    <nav class="navbar">
+        <ul>
+            <li><a href="#string-operations"><i class="fas fa-font"></i> Strings</a></li>
+            <li><a href="#list-operations"><i class="fas fa-list"></i> Lists</a></li>
+            <li><a href="#dict-set-operations"><i class="fas fa-project-diagram"></i> Dictionaries & Sets</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section class="programs-container">
+            <h2 id="string-operations">String Operations</h2>
+            
+            <div class="program-card string-ops">
+                <h3>a. Calculate the length of a string</h3>
+                <div class="code-output-container">
+                    <div class="code">
+                        <div class="code-header">
+                            <h4>Code:</h4>
+                            <button class="copy-btn" data-tooltip="Copy to clipboard">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code># Calculate the length of a string
+input_string = "Hello, Python!"
+length = len(input_string)
+print(f"String: '{input_string}'")
+print(f"Length: {length}")</code></pre>
+                    </div>
+                    <div class="output">
+                        <div class="output-header">
+                            <h4>Output:</h4>
+                        </div>
+                        <pre><code>String: 'Hello, Python!'
+Length: 14</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="program-card string-ops">
+                <h3>b. Count repeated characters in a string</h3>
+                <div class="code-output-container">
+                    <div class="code">
+                        <div class="code-header">
+                            <h4>Code:</h4>
+                            <button class="copy-btn" data-tooltip="Copy to clipboard">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code># Count repeated characters in a string
+input_string = "programming is fun"
+char_count = {}
+
+# Count occurrences of each character
+for char in input_string:
+    if char in char_count:
+        char_count[char] += 1
+    else:
+        char_count[char] = 1
+
+# Filter only repeated characters
+repeated_chars = {char: count for char, count in char_count.items() if count > 1}
+
+print(f"String: '{input_string}'")
+print(f"Repeated characters: {repeated_chars}")</code></pre>
+                    </div>
+                    <div class="output">
+                        <div class="output-header">
+                            <h4>Output:</h4>
+                        </div>
+                        <pre><code>String: 'programming is fun'
+Repeated characters: {'r': 2, 'g': 2, 'm': 2, 'i': 2, 'n': 2}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="program-card string-ops">
+                <h3>c. Reverse a given string</h3>
+                <div class="code-output-container">
+                    <div class="code">
+                        <div class="code-header">
+                            <h4>Code:</h4>
+                            <button class="copy-btn" data-tooltip="Copy to clipboard">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code>def reverse_string(input_string):
+    return input_string[::-1]
+
+# Example usage
+sample_string = "Python Programming"
+result = reverse_string(sample_string)
+print(f"Original string: '{sample_string}'")
+print(f"Reversed string: '{result}'")</code></pre>
+                    </div>
+                    <div class="output">
+                        <div class="output-header">
+                            <h4>Output:</h4>
+                        </div>
+                        <pre><code>Original string: 'Python Programming'
+Reversed string: 'gnimmargorP nohtyP'</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="list-operations">List Operations</h2>
+
+            <div class="program-card list-ops">
+                <h3>d. List operations (add, remove, replace, remove duplicates)</h3>
+                <div class="code-output-container">
+                    <div class="code">
+                        <div class="code-header">
+                            <h4>Code:</h4>
+                            <button class="copy-btn" data-tooltip="Copy to clipboard">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code>def list_operations():
+    # Create a list
+    my_list = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape']
+    print(f"Original list: {my_list}")
+    
+    # Add an item in the 4th position (index 3)
+    my_list.insert(3, 'dragonfruit')
+    print(f"After adding 'dragonfruit' at 4th position: {my_list}")
+    
+    # Remove the 3rd item (index 2)
+    removed_item = my_list.pop(2)
+    print(f"After removing 3rd item ('{removed_item}'): {my_list}")
+    
+    # Replace the 6th item (index 5) with new item
+    my_list[5] = 'kiwi'
+    print(f"After replacing 6th item with 'kiwi': {my_list}")
+    
+    # Add duplicates to show removal
+    my_list.extend(['apple', 'kiwi', 'banana'])
+    print(f"List with duplicates: {my_list}")
+    
+    # Remove duplicates
+    my_list = list(dict.fromkeys(my_list))
+    print(f"After removing duplicates: {my_list}")
+    
+    return my_list</code></pre>
+                    </div>
+                    <div class="output">
+                        <div class="output-header">
+                            <h4>Output:</h4>
+                        </div>
+                        <pre><code>Original list: ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape']
+After adding 'dragonfruit' at 4th position: ['apple', 'banana', 'cherry', 'dragonfruit', 'date', 'elderberry', 'fig', 'grape']
+After removing 3rd item ('cherry'): ['apple', 'banana', 'dragonfruit', 'date', 'elderberry', 'fig', 'grape']
+After replacing 6th item with 'kiwi': ['apple', 'banana', 'dragonfruit', 'date', 'elderberry', 'kiwi', 'grape']
+List with duplicates: ['apple', 'banana', 'dragonfruit', 'date', 'elderberry', 'kiwi', 'grape', 'apple', 'kiwi', 'banana']
+After removing duplicates: ['apple', 'banana', 'dragonfruit', 'date', 'elderberry', 'kiwi', 'grape']</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="program-card list-ops">
+                <h3>e. Append the data of second list to first list</h3>
+                <div class="code-output-container">
+                    <div class="code">
+                        <div class="code-header">
+                            <h4>Code:</h4>
+                            <button class="copy-btn" data-tooltip="Copy to clipboard">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code>def append_lists():
+    # Create first list
+    list1 = [1, 2, 3, 4]
+    print(f"First list: {list1}")
+    
+    # Create second list
+    list2 = [5, 6, 7, 8]
+    print(f"Second list: {list2}")
+    
+    # Append second list to first list
+    list1.extend(list2)
+    print(f"After appending list2 to list1: {list1}")
+    
+    return list1</code></pre>
+                    </div>
+                    <div class="output">
+                        <div class="output-header">
+                            <h4>Output:</h4>
+                        </div>
+                        <pre><code>First list: [1, 2, 3, 4]
+Second list: [5, 6, 7, 8]
+After appending list2 to list1: [1, 2, 3, 4, 5, 6, 7, 8]</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="program-card list-ops">
+                <h3>f. Find common elements between two lists</h3>
+                <div class="code-output-container">
+                    <div class="code">
+                        <div class="code-header">
+                            <h4>Code:</h4>
+                            <button class="copy-btn" data-tooltip="Copy to clipboard">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code>def find_common_elements():
+    # Create two lists
+    list1 = [1, 2, 3, 4, 5, 6]
+    list2 = [4, 5, 6, 7, 8, 9]
+    
+    print(f"First list: {list1}")
+    print(f"Second list: {list2}")
+    
+    # Find common elements
+    common_elements = [item for item in list1 if item in list2]
+    
+    print(f"Common elements: {common_elements}")
+    
+    return common_elements</code></pre>
+                    </div>
+                    <div class="output">
+                        <div class="output-header">
+                            <h4>Output:</h4>
+                        </div>
+                        <pre><code>First list: [1, 2, 3, 4, 5, 6]
+Second list: [4, 5, 6, 7, 8, 9]
+Common elements: [4, 5, 6]</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="program-card list-ops">
+                <h3>g. Remove repeated items from a list</h3>
+                <div class="code-output-container">
+                    <div class="code">
+                        <div class="code-header">
+                            <h4>Code:</h4>
+                            <button class="copy-btn" data-tooltip="Copy to clipboard">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code>def remove_repeated_items():
+    # Create a list with repeated items
+    original_list = [2, 3, 4, 3, 0, 0, 5, 5, 9, 9]
+    print(f"Original list: {original_list}")
+    
+    # Remove duplicates while preserving order
+    result_list = []
+    for item in original_list:
+        if item not in result_list:
+            result_list.append(item)
+    
+    print(f"List after removing duplicates: {result_list}")
+    
+    return result_list</code></pre>
+                    </div>
+                    <div class="output">
+                        <div class="output-header">
+                            <h4>Output:</h4>
+                        </div>
+                        <pre><code>Original list: [2, 3, 4, 3, 0, 0, 5, 5, 9, 9]
+List after removing duplicates: [2, 3, 4, 0, 5, 9]</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="program-card list-ops">
+                <h3>h. Copy list without reflecting changes</h3>
+                <div class="code-output-container">
+                    <div class="code">
+                        <div class="code-header">
+                            <h4>Code:</h4>
+                            <button class="copy-btn" data-tooltip="Copy to clipboard">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code>import copy
+
+def copy_list():
+    # Create original list
+    list1 = [1, 2, [3, 4], 5]
+    print(f"Original list1: {list1}")
+    
+    # Copy using copy() method (shallow copy)
+    list2 = list1.copy()
+    
+    # For deep copy (to handle nested lists)
+    list2_deep = copy.deepcopy(list1)
+    
+    # Modify list1
+    list1.append(6)       # Add an element
+    list1[2].append(3.5)  # Modify nested list
+    
+    print(f"Modified list1: {list1}")
+    print(f"list2 (shallow copy): {list2}")
+    print(f"list2_deep (deep copy): {list2_deep}")
+    
+    return list2_deep</code></pre>
+                    </div>
+                    <div class="output">
+                        <div class="output-header">
+                            <h4>Output:</h4>
+                        </div>
+                        <pre><code>Original list1: [1, 2, [3, 4], 5]
+Modified list1: [1, 2, [3, 4, 3.5], 5, 6]
+list2 (shallow copy): [1, 2, [3, 4, 3.5], 5]
+list2_deep (deep copy): [1, 2, [3, 4], 5]</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="dict-set-operations">Dictionary and Set Operations</h2>
+
+            <div class="program-card dict-ops">
+                <h3>a. Sort a dictionary by value</h3>
+                <div class="code-output-container">
+                    <div class="code">
+                        <div class="code-header">
+                            <h4>Code:</h4>
+                            <button class="copy-btn" data-tooltip="Copy to clipboard">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code>def sort_dict_by_value():
+    # Create a dictionary
+    my_dict = {'apple': 25, 'banana': 10, 'cherry': 40, 'date': 5, 'elderberry': 30}
+    print(f"Original dictionary: {my_dict}")
+    
+    # Sort dictionary by value
+    sorted_dict = dict(sorted(my_dict.items(), key=lambda item: item[1]))
+    print(f"Dictionary sorted by value (ascending): {sorted_dict}")
+    
+    # Sort dictionary by value in descending order
+    sorted_dict_desc = dict(sorted(my_dict.items(), key=lambda item: item[1], reverse=True))
+    print(f"Dictionary sorted by value (descending): {sorted_dict_desc}")
+    
+    return sorted_dict</code></pre>
+                    </div>
+                    <div class="output">
+                        <div class="output-header">
+                            <h4>Output:</h4>
+                        </div>
+                        <pre><code>Original dictionary: {'apple': 25, 'banana': 10, 'cherry': 40, 'date': 5, 'elderberry': 30}
+Dictionary sorted by value (ascending): {'date': 5, 'banana': 10, 'apple': 25, 'elderberry': 30, 'cherry': 40}
+Dictionary sorted by value (descending): {'cherry': 40, 'elderberry': 30, 'apple': 25, 'banana': 10, 'date': 5}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="program-card dict-ops">
+                <h3>b. Concatenate dictionaries</h3>
+                <div class="code-output-container">
+                    <div class="code">
+                        <div class="code-header">
+                            <h4>Code:</h4>
+                            <button class="copy-btn" data-tooltip="Copy to clipboard">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code>def concatenate_dicts():
+    # Create dictionaries
+    dict1 = {1: 10, 2: 20}
+    dict2 = {3: 30, 4: 40}
+    
+    print(f"Dict1: {dict1}")
+    print(f"Dict2: {dict2}")
+    
+    # Create a new dictionary and update with both dicts
+    new_dict = {}
+    new_dict.update(dict1)
+    new_dict.update(dict2)
+    
+    print(f"Concatenated dictionary: {new_dict}")
+    
+    return new_dict</code></pre>
+                    </div>
+                    <div class="output">
+                        <div class="output-header">
+                            <h4>Output:</h4>
+                        </div>
+                        <pre><code>Dict1: {1: 10, 2: 20}
+Dict2: {3: 30, 4: 40}
+Concatenated dictionary: {1: 10, 2: 20, 3: 30, 4: 40}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="program-card dict-ops">
+                <h3>c. Add members to a Set</h3>
+                <div class="code-output-container">
+                    <div class="code">
+                        <div class="code-header">
+                            <h4>Code:</h4>
+                            <button class="copy-btn" data-tooltip="Copy to clipboard">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code>def add_to_set():
+    # Create a set
+    my_set = {1, 2, 3}
+    print(f"Original set: {my_set}")
+    
+    # Add a single element
+    my_set.add(4)
+    print(f"After adding 4: {my_set}")
+    
+    # Add multiple elements using update()
+    my_set.update([5, 6, 7])
+    print(f"After adding multiple elements: {my_set}")
+    
+    # Trying to add duplicate element (will be ignored)
+    my_set.add(3)
+    print(f"After trying to add existing element 3: {my_set}")
+    
+    return my_set</code></pre>
+                    </div>
+                    <div class="output">
+                        <div class="output-header">
+                            <h4>Output:</h4>
+                        </div>
+                        <pre><code>Original set: {1, 2, 3}
+After adding 4: {1, 2, 3, 4}
+After adding multiple elements: {1, 2, 3, 4, 5, 6, 7}
+After trying to add existing element 3: {1, 2, 3, 4, 5, 6, 7}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="program-card dict-ops">
+                <h3>d. Create a union of sets</h3>
+                <div class="code-output-container">
+                    <div class="code">
+                        <div class="code-header">
+                            <h4>Code:</h4>
+                            <button class="copy-btn" data-tooltip="Copy to clipboard">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code>def union_of_sets():
+    # Create sets
+    set1 = {1, 2, 3, 4, 5}
+    set2 = {4, 5, 6, 7, 8}
+    
+    print(f"Set1: {set1}")
+    print(f"Set2: {set2}")
+    
+    # Method 1: Using the union() method
+    union_result = set1.union(set2)
+    print(f"Union using union() method: {union_result}")
+    
+    # Method 2: Using the | operator
+    union_result_alt = set1 | set2
+    print(f"Union using | operator: {union_result_alt}")
+    
+    return union_result</code></pre>
+                    </div>
+                    <div class="output">
+                        <div class="output-header">
+                            <h4>Output:</h4>
+                        </div>
+                        <pre><code>Set1: {1, 2, 3, 4, 5}
+Set2: {4, 5, 6, 7, 8}
+Union using union() method: {1, 2, 3, 4, 5, 6, 7, 8}
+Union using | operator: {1, 2, 3, 4, 5, 6, 7, 8}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="program-card dict-ops">
+                <h3>e. Match a string with 'a' followed by one or more b's</h3>
+                <div class="code-output-container">
+                    <div class="code">
+                        <div class="code-header">
+                            <h4>Code:</h4>
+                            <button class="copy-btn" data-tooltip="Copy to clipboard">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code>import re
+
+def match_pattern():
+    # Pattern: 'a' followed by one or more 'b's
+    pattern = r'ab+'
+    
+    # Test strings
+    test_strings = [
+        "ab",
+        "abb",
+        "abbb",
+        "a",
+        "b",
+        "abc",
+        "cab",
+        "Hello abbb world"
+    ]
+    
+    print("Testing pattern: 'a' followed by one or more b's")
+    print("Pattern: ab+")
+    
+    for test_str in test_strings:
+        match = re.search(pattern, test_str)
+        if match:
+            print(f"'{test_str}' MATCHES - Found '{match.group()}'")
+        else:
+            print(f"'{test_str}' DOES NOT MATCH")
+
+# Run the function
+match_pattern()</code></pre>
+                    </div>
+                    <div class="output">
+                        <div class="output-header">
+                            <h4>Output:</h4>
+                        </div>
+                        <pre><code>Testing pattern: 'a' followed by one or more b's
+Pattern: ab+
+'ab' MATCHES - Found 'ab'
+'abb' MATCHES - Found 'abb'
+'abbb' MATCHES - Found 'abbb'
+'a' DOES NOT MATCH
+'b' DOES NOT MATCH
+'abc' MATCHES - Found 'ab'
+'cab' MATCHES - Found 'ab'
+'Hello abbb world' MATCHES - Found 'abbb'</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <button class="back-to-top" id="backToTop" title="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <footer>
+        <p>Python SSA 3 & 4 © 2023 | A comprehensive repository of Python examples and solutions</p>
+    </footer>
+
+    <script>
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Add category classes to program cards
+        document.querySelectorAll('.program-card').forEach(card => {
+            const heading = card.previousElementSibling?.tagName === 'H2' ? 
+                            card.previousElementSibling.textContent.toLowerCase() : '';
+            
+            if (heading.includes('string')) {
+                card.classList.add('string-ops');
+            } else if (heading.includes('list')) {
+                card.classList.add('list-ops');
+            } else if (heading.includes('dictionary') || heading.includes('set')) {
+                card.classList.add('dict-ops');
+            } else if (heading.includes('regex') || heading.includes('pattern')) {
+                card.classList.add('regex-ops');
+            }
+        });
+
+        // Copy code functionality
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const codeBlock = button.closest('.code').querySelector('code');
+                const textToCopy = codeBlock.textContent;
+                
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    // Success feedback
+                    button.classList.add('copied');
+                    button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        button.classList.remove('copied');
+                        button.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Could not copy text: ', err);
+                });
+            });
+        });
+
+        // Theme switch functionality (optional)
+        const themeSwitch = document.getElementById('themeSwitch');
+        const htmlElement = document.documentElement;
+        
+        themeSwitch.addEventListener('click', () => {
+            if (htmlElement.getAttribute('data-theme') === 'dark') {
+                htmlElement.removeAttribute('data-theme');
+                themeSwitch.innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                htmlElement.setAttribute('data-theme', 'dark');
+                themeSwitch.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        });
+    </script>
+</body>
+</html>

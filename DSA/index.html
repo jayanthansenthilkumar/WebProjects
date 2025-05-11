@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures and Algorithms Showcase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <style>
+        :root {
+    --primary-color: #4a6fa5;
+    --secondary-color: #166d8f;
+    --bg-color: #f5f7fa;
+    --code-bg: #282c34;
+    --text-color: #333;
+    --header-bg: #2c3e50;
+    --header-text: #ecf0f1;
+    --button-hover: #3498db;
+    --tab-active: #4a6fa5;
+    --tab-inactive: #e0e0e0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 2rem 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    border-radius: 0 0 8px 8px;
+}
+
+/* Tab Navigation Styles */
+.tab-container {
+    margin-bottom: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.tabs {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.tabs::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.tab-btn {
+    padding: 12px 20px;
+    background-color: var(--tab-inactive);
+    border: none;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    font-weight: 500;
+    transition: 0.3s;
+    white-space: nowrap;
+    font-size: 0.95rem;
+}
+
+.tab-btn:hover {
+    background-color: #d4d4d4;
+}
+
+.tab-btn.active {
+    background-color: var(--tab-active);
+    color: white;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeEffect 0.5s;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.algo-section {
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    color: var(--secondary-color);
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.algorithm-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f3f6fa;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.section-header h3 {
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.code-description {
+    padding: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+pre {
+    margin: 0;
+    background-color: var(--code-bg);
+    overflow-x: auto;
+    max-height: 400px;
+}
+
+pre code {
+    font-family: 'Consolas', 'Courier New', monospace;
+    padding: 1rem;
+    display: block;
+    font-size: 0.9rem;
+}
+
+.copy-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.copy-btn:hover {
+    background-color: var(--button-hover);
+}
+
+.output-container {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
+}
+
+.output-container h4 {
+    margin-bottom: 0.5rem;
+    color: var(--secondary-color);
+}
+
+.output {
+    background-color: white;
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem;
+    margin: 0;
+    overflow-x: auto;
+}
+
+.output code {
+    background-color: transparent;
+    color: #333;
+    font-family: 'Consolas', 'Courier New', monospace;
+}
+
+footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+    background-color: #f0f2f5;
+    border-radius: 8px;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .tab-btn {
+        padding: 10px 15px;
+        font-size: 0.85rem;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .copy-btn {
+        margin-top: 0.8rem;
+        width: 100%;
+        text-align: center;
+    }
+    
+    pre code {
+        font-size: 0.8rem;
+    }
+    
+    .output {
+        font-size: 0.8rem;
+    }
+    
+    header {
+        padding: 1.5rem 1rem;
+    }
+    
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    header p {
+        font-size: 0.9rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Data Structures and Algorithms Showcase</h1>
+        <p>A collection of important algorithms and data structures in Computer Science</p>
+    </header>
+
+    <!-- Tab-based Navigation -->
+    <div class="tab-container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('graph-algorithms')">Graph Algorithms</button>
+            <button class="tab-btn" onclick="openTab('binary-trees')">Binary Trees</button>
+            <button class="tab-btn" onclick="openTab('tree-traversal')">Tree Traversal</button>
+            <button class="tab-btn" onclick="openTab('avl-trees')">AVL Trees</button>
+        </div>
+    </div>
+
+    <main>
+        <section id="graph-algorithms" class="algo-section tab-content active">
+            <h2 class="section-title">Graph Algorithms</h2>
+            
+            <!-- Dijkstra's Algorithm -->
+            <div class="algorithm-container">
+                <div class="section-header">
+                    <h3>Dijkstra's Algorithm</h3>
+                    <button class="copy-btn" data-code="dijkstra-code">Copy Code</button>
+                </div>
+                <div class="code-description">
+                    <p>Finds the shortest path from a source node to all other nodes in a weighted graph.</p>
+                </div>
+                <pre><code class="language-c" id="dijkstra-code">#include &lt;stdio.h&gt;
+#define INF 9999
+#define V 5
+
+// Simplified Dijkstra's Algorithm
+void dijkstra(int graph[V][V], int start) {
+    int dist[V], visited[V];
+    
+    // Initialize distances and visited array
+    for (int i = 0; i < V; i++) {
+        dist[i] = INF;
+        visited[i] = 0;
+    }
+    
+    // Distance to self is 0
+    dist[start] = 0;
+    
+    // Find shortest path for all vertices
+    for (int count = 0; count < V - 1; count++) {
+        // Find minimum distance vertex
+        int min = INF, u;
+        for (int i = 0; i < V; i++)
+            if (!visited[i] && dist[i] < min)
+                min = dist[i], u = i;
+                
+        // Mark vertex as visited
+        visited[u] = 1;
+        
+        // Update distances of adjacent vertices
+        for (int v = 0; v < V; v++)
+            if (!visited[v] && graph[u][v] && dist[u] + graph[u][v] < dist[v])
+                dist[v] = dist[u] + graph[u][v];
+    }
+    
+    // Print results
+    printf("\nDijkstra's Algorithm (Source = %d):\n", start);
+    for (int i = 0; i < V; i++)
+        printf("Distance from %d to %d = %d\n", start, i, dist[i]);
+}</code></pre>
+                <div class="output-container">
+                    <h4>Output:</h4>
+                    <pre class="output"><code>Dijkstra's Algorithm (Source = 0):
+Distance from 0 to 0 = 0
+Distance from 0 to 1 = 2
+Distance from 0 to 2 = 5
+Distance from 0 to 3 = 6
+Distance from 0 to 4 = 7</code></pre>
+                </div>
+            </div>
+
+            <!-- Prim's Algorithm -->
+            <div class="algorithm-container">
+                <div class="section-header">
+                    <h3>Prim's Algorithm</h3>
+                    <button class="copy-btn" data-code="prim-code">Copy Code</button>
+                </div>
+                <div class="code-description">
+                    <p>Finds a minimum spanning tree for a weighted undirected graph.</p>
+                </div>
+                <pre><code class="language-c" id="prim-code">// Prim's Algorithm
+void prim(int graph[V][V]) {
+    int selected[V] = {0};
+    selected[0] = 1;
+    int edgeCount = 0;
+
+    printf("\nPrim's Algorithm (Minimum Spanning Tree):\n");
+    while (edgeCount < V - 1) {
+        int min = INF, a = -1, b = -1;
+
+        for (int i = 0; i < V; i++) {
+            if (selected[i]) {
+                for (int j = 0; j < V; j++) {
+                    if (!selected[j] && graph[i][j] && graph[i][j] < min) {
+                        min = graph[i][j];
+                        a = i;
+                        b = j;
+                    }
+                }
+            }
+        }
+
+        printf("Edge %d - %d, Weight = %d\n", a, b, graph[a][b]);
+        selected[b] = 1;
+        edgeCount++;
+    }
+}</code></pre>
+                <div class="output-container">
+                    <h4>Output:</h4>
+                    <pre class="output"><code>Prim's Algorithm (Minimum Spanning Tree):
+Edge 0 - 1, Weight = 2
+Edge 1 - 2, Weight = 3
+Edge 0 - 3, Weight = 6
+Edge 1 - 4, Weight = 5</code></pre>
+                </div>
+            </div>
+
+            <!-- Kruskal's Algorithm -->
+            <div class="algorithm-container">
+                <div class="section-header">
+                    <h3>Kruskal's Algorithm</h3>
+                    <button class="copy-btn" data-code="kruskal-code">Copy Code</button>
+                </div>
+                <div class="code-description">
+                    <p>Finds a minimum spanning tree by considering edges in order of their weight.</p>
+                </div>
+                <pre><code class="language-c" id="kruskal-code">// Kruskal's Algorithm
+int parent[V];
+
+int find(int i) {
+    while (parent[i] != i)
+        i = parent[i];
+    return i;
+}
+
+void unionSet(int i, int j) {
+    int a = find(i);
+    int b = find(j);
+    parent[a] = b;
+}
+
+void kruskal(int edges[E][3]) {
+    for (int i = 0; i < V; i++)
+        parent[i] = i;
+
+    int count = 0;
+
+    printf("\nKruskal's Algorithm (Minimum Spanning Tree):\n");
+    for (int i = 0; count < V - 1 && i < E; i++) {
+        int u = edges[i][0];
+        int v = edges[i][1];
+        int w = edges[i][2];
+
+        if (find(u) != find(v)) {
+            printf("Edge %d - %d, Weight = %d\n", u, v, w);
+            unionSet(u, v);
+            count++;
+        }
+    }
+}</code></pre>
+                <div class="output-container">
+                    <h4>Output:</h4>
+                    <pre class="output"><code>Kruskal's Algorithm (Minimum Spanning Tree):
+Edge 0 - 1, Weight = 2
+Edge 1 - 2, Weight = 3
+Edge 1 - 4, Weight = 5
+Edge 0 - 3, Weight = 6</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="binary-trees" class="algo-section tab-content">
+            <h2 class="section-title">Binary Trees & Binary Search Trees</h2>
+            
+            <!-- Binary Tree -->
+            <div class="algorithm-container">
+                <div class="section-header">
+                    <h3>Binary Tree Implementation</h3>
+                    <button class="copy-btn" data-code="binary-tree-code">Copy Code</button>
+                </div>
+                <div class="code-description">
+                    <p>Basic implementation of a binary tree data structure.</p>
+                </div>
+                <pre><code class="language-c" id="binary-tree-code">#include <stdio.h>
+#include <stdlib.h>
+
+// Basic structure of a tree node
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+
+// Function to create a new node
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+// Function to insert a node in a binary tree
+struct Node* insertNode(struct Node* root, int data) {
+    // If the tree is empty, assign new node address to root
+    if (root == NULL) {
+        root = createNode(data);
+        return root;
+    }
+
+    // Else, do level order traversal until we find an empty place
+    // This example uses a simple level order insertion
+    if (rand() % 2 == 0) { // Random decision for demo purposes
+        root->left = insertNode(root->left, data);
+    } else {
+        root->right = insertNode(root->right, data);
+    }
+    
+    return root;
+}
+
+// Sample main function
+int main() {
+    struct Node* root = NULL;
+    
+    // Creating a sample binary tree
+    root = insertNode(root, 10);
+    insertNode(root, 20);
+    insertNode(root, 30);
+    insertNode(root, 40);
+    insertNode(root, 50);
+    
+    printf("Binary Tree created successfully\n");
+    
+    return 0;
+}</code></pre>
+                <div class="output-container">
+                    <h4>Output:</h4>
+                    <pre class="output"><code>Binary Tree created successfully</code></pre>
+                </div>
+            </div>
+
+            <!-- Binary Search Tree -->
+            <div class="algorithm-container">
+                <div class="section-header">
+                    <h3>Binary Search Tree (BST)</h3>
+                    <button class="copy-btn" data-code="bst-code">Copy Code</button>
+                </div>
+                <div class="code-description">
+                    <p>Implementation of a Binary Search Tree with insertion and search operations.</p>
+                </div>
+                <pre><code class="language-c" id="bst-code">#include <stdio.h>
+#include <stdlib.h>
+
+// Structure for a BST node
+struct BSTNode {
+    int data;
+    struct BSTNode* left;
+    struct BSTNode* right;
+};
+
+// Function to create a new BST node
+struct BSTNode* createBSTNode(int data) {
+    struct BSTNode* newNode = (struct BSTNode*)malloc(sizeof(struct BSTNode));
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+// Function to insert a node in BST
+struct BSTNode* insertBST(struct BSTNode* root, int data) {
+    // If the tree is empty, return a new node
+    if (root == NULL)
+        return createBSTNode(data);
+    
+    // Otherwise, recur down the tree
+    if (data < root->data)
+        root->left = insertBST(root->left, data);
+    else if (data > root->data)
+        root->right = insertBST(root->right, data);
+    
+    // Return the unchanged node pointer
+    return root;
+}
+
+// Function to search for a key in BST
+struct BSTNode* searchBST(struct BSTNode* root, int key) {
+    // Base Cases: root is null or key is present at root
+    if (root == NULL || root->data == key)
+        return root;
+    
+    // Key is greater than root's key
+    if (root->data < key)
+        return searchBST(root->right, key);
+    
+    // Key is smaller than root's key
+    return searchBST(root->left, key);
+}
+
+// Sample main function
+int main() {
+    struct BSTNode* root = NULL;
+    
+    // Creating a BST
+    root = insertBST(root, 50);
+    insertBST(root, 30);
+    insertBST(root, 20);
+    insertBST(root, 40);
+    insertBST(root, 70);
+    insertBST(root, 60);
+    insertBST(root, 80);
+    
+    // Search for a value
+    int searchKey = 40;
+    struct BSTNode* result = searchBST(root, searchKey);
+    
+    if (result)
+        printf("Value %d found in the BST\n", searchKey);
+    else
+        printf("Value %d not found in the BST\n", searchKey);
+    
+    return 0;
+}</code></pre>
+                <div class="output-container">
+                    <h4>Output:</h4>
+                    <pre class="output"><code>Value 40 found in the BST</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="tree-traversal" class="algo-section tab-content">
+            <h2 class="section-title">Tree Traversal Algorithms</h2>
+            
+            <div class="algorithm-container">
+                <div class="section-header">
+                    <h3>Inorder, Preorder, and Postorder Traversal</h3>
+                    <button class="copy-btn" data-code="traversal-code">Copy Code</button>
+                </div>
+                <div class="code-description">
+                    <p>Implementation of the three main tree traversal techniques: Inorder, Preorder, and Postorder.</p>
+                </div>
+                <pre><code class="language-c" id="traversal-code">#include <stdio.h>
+#include <stdlib.h>
+
+// Structure for a tree node
+struct TreeNode {
+    int data;
+    struct TreeNode* left;
+    struct TreeNode* right;
+};
+
+// Function to create a new node
+struct TreeNode* createNode(int data) {
+    struct TreeNode* newNode = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+// Inorder traversal: Left -> Root -> Right
+void inorderTraversal(struct TreeNode* root) {
+    if (root == NULL)
+        return;
+    
+    // First recur on left subtree
+    inorderTraversal(root->left);
+    
+    // Then visit the root
+    printf("%d ", root->data);
+    
+    // Finally recur on right subtree
+    inorderTraversal(root->right);
+}
+
+// Preorder traversal: Root -> Left -> Right
+void preorderTraversal(struct TreeNode* root) {
+    if (root == NULL)
+        return;
+    
+    // First visit the root
+    printf("%d ", root->data);
+    
+    // Then recur on left subtree
+    preorderTraversal(root->left);
+    
+    // Finally recur on right subtree
+    preorderTraversal(root->right);
+}
+
+// Postorder traversal: Left -> Right -> Root
+void postorderTraversal(struct TreeNode* root) {
+    if (root == NULL)
+        return;
+    
+    // First recur on left subtree
+    postorderTraversal(root->left);
+    
+    // Then recur on right subtree
+    postorderTraversal(root->right);
+    
+    // Finally visit the root
+    printf("%d ", root->data);
+}
+
+// Sample main function
+int main() {
+    // Creating a sample binary tree
+    //        1
+    //       / \
+    //      2   3
+    //     / \
+    //    4   5
+    struct TreeNode* root = createNode(1);
+    root->left = createNode(2);
+    root->right = createNode(3);
+    root->left->left = createNode(4);
+    root->left->right = createNode(5);
+    
+    printf("Inorder traversal: ");
+    inorderTraversal(root);
+    printf("\n");
+    
+    printf("Preorder traversal: ");
+    preorderTraversal(root);
+    printf("\n");
+    
+    printf("Postorder traversal: ");
+    postorderTraversal(root);
+    printf("\n");
+    
+    return 0;
+}</code></pre>
+                <div class="output-container">
+                    <h4>Output:</h4>
+                    <pre class="output"><code>Inorder traversal: 4 2 5 1 3 
+Preorder traversal: 1 2 4 5 3 
+Postorder traversal: 4 5 2 3 1</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="avl-trees" class="algo-section tab-content">
+            <h2 class="section-title">AVL Trees</h2>
+            
+            <div class="algorithm-container">
+                <div class="section-header">
+                    <h3>AVL Tree Implementation</h3>
+                    <button class="copy-btn" data-code="avl-code">Copy Code</button>
+                </div>
+                <div class="code-description">
+                    <p>Implementation of a self-balancing AVL tree with insertion and rotation operations.</p>
+                </div>
+                <pre><code class="language-c" id="avl-code">#include <stdio.h>
+#include <stdlib.h>
+
+// Structure for an AVL tree node
+struct AVLNode {
+    int data;
+    struct AVLNode* left;
+    struct AVLNode* right;
+    int height; // Height of the node
+};
+
+// Function to get height of a node
+int height(struct AVLNode* node) {
+    if (node == NULL)
+        return 0;
+    return node->height;
+}
+
+// Function to get maximum of two integers
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+// Function to create a new AVL tree node
+struct AVLNode* createAVLNode(int data) {
+    struct AVLNode* newNode = (struct AVLNode*)malloc(sizeof(struct AVLNode));
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    newNode->height = 1; // New node is initially added at leaf
+    return newNode;
+}
+
+// Function to right rotate subtree rooted with y
+struct AVLNode* rightRotate(struct AVLNode* y) {
+    struct AVLNode* x = y->left;
+    struct AVLNode* T2 = x->right;
+
+    // Perform rotation
+    x->right = y;
+    y->left = T2;
+
+    // Update heights
+    y->height = max(height(y->left), height(y->right)) + 1;
+    x->height = max(height(x->left), height(x->right)) + 1;
+
+    // Return new root
+    return x;
+}
+
+// Function to left rotate subtree rooted with x
+struct AVLNode* leftRotate(struct AVLNode* x) {
+    struct AVLNode* y = x->right;
+    struct AVLNode* T2 = y->left;
+
+    // Perform rotation
+    y->left = x;
+    x->right = T2;
+
+    // Update heights
+    x->height = max(height(x->left), height(x->right)) + 1;
+    y->height = max(height(y->left), height(y->right)) + 1;
+
+    // Return new root
+    return y;
+}
+
+// Get the balance factor of a node
+int getBalance(struct AVLNode* node) {
+    if (node == NULL)
+        return 0;
+    return height(node->left) - height(node->right);
+}
+
+// Function to insert a node in an AVL tree
+struct AVLNode* insertAVL(struct AVLNode* node, int data) {
+    // 1. Perform the normal BST insertion
+    if (node == NULL)
+        return createAVLNode(data);
+
+    if (data < node->data)
+        node->left = insertAVL(node->left, data);
+    else if (data > node->data)
+        node->right = insertAVL(node->right, data);
+    else // Equal keys are not allowed in BST
+        return node;
+
+    // 2. Update height of this ancestor node
+    node->height = 1 + max(height(node->left), height(node->right));
+
+    // 3. Get the balance factor of this ancestor node to check whether it became unbalanced
+    int balance = getBalance(node);
+
+    // If this node becomes unbalanced, then there are 4 cases
+
+    // Left Left Case
+    if (balance > 1 && data < node->left->data)
+        return rightRotate(node);
+
+    // Right Right Case
+    if (balance < -1 && data > node->right->data)
+        return leftRotate(node);
+
+    // Left Right Case
+    if (balance > 1 && data > node->left->data) {
+        node->left = leftRotate(node->left);
+        return rightRotate(node);
+    }
+
+    // Right Left Case
+    if (balance < -1 && data < node->right->data) {
+        node->right = rightRotate(node->right);
+        return leftRotate(node);
+    }
+
+    // Return the unchanged node pointer
+    return node;
+}
+
+// Function to print preorder traversal of the tree
+void preOrder(struct AVLNode* root) {
+    if (root != NULL) {
+        printf("%d ", root->data);
+        preOrder(root->left);
+        preOrder(root->right);
+    }
+}
+
+// Sample main function
+int main() {
+    struct AVLNode* root = NULL;
+
+    // Constructing tree by inserting nodes
+    root = insertAVL(root, 10);
+    root = insertAVL(root, 20);
+    root = insertAVL(root, 30);
+    root = insertAVL(root, 40);
+    root = insertAVL(root, 50);
+    root = insertAVL(root, 25);
+
+    printf("Preorder traversal of the AVL tree: ");
+    preOrder(root);
+    printf("\n");
+
+    return 0;
+}</code></pre>
+                <div class="output-container">
+                    <h4>Output:</h4>
+                    <pre class="output"><code>Preorder traversal of the AVL tree: 30 20 10 25 40 50</code></pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Data Structures and Algorithms Showcase &copy; 2023</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Handle all copy buttons
+    const copyButtons = document.querySelectorAll('.copy-btn');
+    
+    copyButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const codeId = this.getAttribute('data-code');
+            const codeElement = document.getElementById(codeId);
+            
+            if (codeElement) {
+                // Create a temporary textarea element to copy the text
+                const textarea = document.createElement('textarea');
+                textarea.value = codeElement.textContent;
+                document.body.appendChild(textarea);
+                
+                // Select and copy the text
+                textarea.select();
+                document.execCommand('copy');
+                
+                // Remove the temporary textarea
+                document.body.removeChild(textarea);
+                
+                // Provide user feedback
+                const originalText = this.textContent;
+                this.textContent = 'Copied!';
+                this.style.backgroundColor = '#2ecc71';
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.backgroundColor = '';
+                }, 2000);
+            }
+        });
+    });
+    
+    // Set first tab as active by default
+    if (!document.querySelector('.tab-content.active')) {
+        openTab('graph-algorithms');
+    }
+    
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('.algo-nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Highlight.js initialization (in case it wasn't loaded properly before)
+    if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+    }
+});
+
+// Function to handle tab switching
+function openTab(tabId) {
+    // Hide all tab contents
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabContents.forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Deactivate all tab buttons
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    tabButtons.forEach(button => {
+        button.classList.remove('active');
+    });
+    
+    // Show the selected tab content
+    document.getElementById(tabId).classList.add('active');
+    
+    // Find and activate the corresponding button
+    const activeButton = document.querySelector(`.tab-btn[onclick="openTab('${tabId}')"]`);
+    if (activeButton) {
+        activeButton.classList.add('active');
+    }
+}
+
+    </script>
+</body>
+</html>
