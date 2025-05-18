@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Tools Explorer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2092/2092763.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="description" content="Explore a collection of cutting-edge AI tools for different purposes" />
+  </head>
+  <body>
+    <!-- Header with Navigation -->
+    <header class="app-header">
+      <div class="header-content">
+        <a href="#" class="site-logo">
+          <img src="https://cdn-icons-png.flaticon.com/512/2092/2092763.png" alt="AI Tools" class="logo-icon">
+          <span>AI Tools Explorer</span>
+        </a>
+      </div>
+    </header>
+    
+    <!-- Password protection overlay -->
+    <div id="password-overlay" class="password-overlay">
+      <div class="password-container">
+        <h2>Access Required</h2>
+        <p>Please enter the passcode to view the AI tools collection</p>
+        <div class="password-input-group">
+          <input
+            type="password"
+            id="password-input"
+            placeholder="Enter passcode..."
+          />
+          <button id="submit-password">Enter</button>
+        </div>
+        <p id="password-error" class="password-error"></p>
+      </div>
+    </div>
+
+    <div id="main-content" class="main-content blurred">
+      <div class="container">
+        <h1>Discover AI Tools</h1>
+        
+        <!-- Search container - move inside main content -->
+        <div class="search-container blurred">
+          <input type="number" id="level-search" min="0" placeholder="Search by level...">
+          <button id="search-btn">Find Tool</button>
+        </div>
+        
+        <div id="event-boxes" class="event-grid"></div>
+      </div>
+    </div>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
